@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">CyberJur</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="enter">Вход</string>
+    <string name="loginOrEmail">Почта или логин</string>
+    <string name="password">Пароль</string>
+    <string name="login">Войти</string>
+    <string name="eljur">Электронный журнал</string>
+    <string name="url"></string>
+    <string name="preference_key">pfs</string>
+</resources>

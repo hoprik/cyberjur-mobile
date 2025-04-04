@@ -1,0 +1,14 @@
+<resources>
+    <declare-styleable name="BaseWidget">
+        <attr name="roundLeft" format="dimension"/>
+        <attr name="roundTop" format="dimension"/>
+        <attr name="roundRight" format="dimension"/>
+        <attr name="roundBottom" format="dimension"/>
+        <attr name="roundX" format="dimension"/>
+        <attr name="roundY" format="dimension"/>
+        <attr name="round" format="dimension"/>
+        <attr name="bgColor" format="string"/>
+        <attr name="txtColor" format="string"/>
+        <attr name="txtHintColor" format="string"/>
+    </declare-styleable>
+</resources>

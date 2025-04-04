@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ru.egmohf.cyberjur.ui.widget.CConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+                                                android:layout_height="match_parent" android:padding="10dp"
+                                                xmlns:app="http://schemas.android.com/apk/res-auto" app:bgColor="second-bg-color">
+    <ru.egmohf.cyberjur.ui.widget.CTextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                            android:layout_marginBottom="10dp"
+                                            android:text='@string/eljur' app:txtColor="white"
+                                            android:textSize="32sp"
+                                            android:id="@+id/CTextView2"
+                                            app:layout_constraintBottom_toTopOf="@+id/CConstraintLayout"
+                                            app:layout_constraintEnd_toEndOf="parent"
+                                            app:layout_constraintStart_toStartOf="parent"/>
+    <ru.egmohf.cyberjur.ui.widget.CConstraintLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                                                    app:layout_constraintEnd_toEndOf="parent" android:padding="15dp"
+                                                    app:bgColor="first-bg-color" app:round="20dp"
+                                                    app:layout_constraintStart_toStartOf="parent"
+                                                    app:layout_constraintBottom_toBottomOf="parent"
+                                                    app:layout_constraintTop_toTopOf="parent"
+                                                    android:id="@+id/CConstraintLayout">
+        <ru.egmohf.cyberjur.ui.widget.CTextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                                android:text='@string/enter' app:txtColor="white"
+                                                app:layout_constraintEnd_toEndOf="parent"
+                                                android:layout_marginTop="15dp"
+                                                app:layout_constraintStart_toStartOf="parent" android:textSize="28sp"
+                                                android:id="@+id/CTextView"/>
+
+        <ru.egmohf.cyberjur.ui.widget.CLinerLayout android:layout_width="match_parent"
+                                                   android:layout_height="wrap_content"
+                                                   app:layout_constraintTop_toBottomOf="@+id/CTextView"
+                                                   android:orientation="vertical" android:paddingTop="10dp"
+                                                   android:paddingBottom="10dp"
+                                                   android:id="@+id/CLinerLayout">
+            <ru.egmohf.cyberjur.ui.widget.Input
+                    app:bgColor="second-bg-color"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:inputType="text"
+                    android:hint="@string/login"
+                    app:txtHintColor="gray"
+                    android:paddingLeft="5dp"
+                    android:layout_marginBottom="10dp"
+                    app:txtColor="white"
+                    app:round="10dp"
+                    android:id="@+id/editTextText" android:layout_weight="1"/>
+
+            <ru.egmohf.cyberjur.ui.widget.Input
+                    app:bgColor="second-bg-color"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:inputType="textPassword"
+                    android:hint="@string/password"
+                    app:txtHintColor="gray"
+                    app:txtColor="white"
+                    android:paddingLeft="5dp"
+                    app:round="10dp"
+                    android:id="@+id/editTextText2"/>
+        </ru.egmohf.cyberjur.ui.widget.CLinerLayout>
+
+        <ru.egmohf.cyberjur.ui.widget.CButton android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                              android:padding="3dp" android:textAllCaps="false"
+                                              android:text="@string/login" app:layout_constraintEnd_toEndOf="parent"
+                                              app:layout_constraintStart_toStartOf="parent" android:textSize="18sp"
+                                              app:layout_constraintBottom_toBottomOf="parent" app:bgColor="gray"
+                                              app:round="5dp"
+                                              app:layout_constraintTop_toBottomOf="@+id/CLinerLayout"
+                                              android:id="@+id/loginButton"/>
+
+    </ru.egmohf.cyberjur.ui.widget.CConstraintLayout>
+</ru.egmohf.cyberjur.ui.widget.CConstraintLayout>
