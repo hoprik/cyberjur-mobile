@@ -6,6 +6,7 @@ import okhttp3.*;
 import ru.egmohf.cyberjur.api.interfaces.User;
 import ru.egmohf.cyberjur.ui.PopupEngine;
 
+import java.io.EOFException;
 import java.io.IOException;
 
 public class ApiHelper {
@@ -36,15 +37,17 @@ public class ApiHelper {
 
                     if (hasError(responseBody)) {
                         String error = getError(responseBody);
+                        Log.e("API_ERROR", error);
                         callback.onFailure(new ResponseWrapper(true, error));
                     } else {
                         String data = getDataJson(responseBody);
-                        PopupEngine.getINSTANCE().sendNotify(data);
                         callback.onSuccess(new ResponseWrapper(data, response));
                     }
                 } catch (Exception e) {
                     PopupEngine.getINSTANCE().sendNotify(e.getMessage());
+                    Log.e("API_ERROR", e.getMessage());
                     callback.onFailure(new ResponseWrapper(true, e.getMessage()));
+                    throw new RuntimeException(e);
                 }
             }
         });
@@ -81,36 +84,50 @@ public class ApiHelper {
         }
     }
 
-    private static String getError(String json) {;
-        try {
-            JsonElement jsonElement = JsonParser.parseString(json);
-            if (jsonElement.isJsonObject()) {
-                JsonObject jsonObject = jsonElement.getAsJsonObject();
-                if (jsonObject.has("error")) {
-                    return jsonObject.getAsJsonObject("error").getAsString();
-                } else {
-                    return "";
-                }
-            }
-            throw new JsonSyntaxException("Invalid JSON structure");
-        }catch (Exception e) {
-            return e.getMessage();
-        }
-    }
-
-    private static String getDataJson(String json){
+    private static String getDataJson(String json) {
         try {
             JsonElement jsonElement = JsonParser.parseString(json);
             if (jsonElement.isJsonObject()) {
                 JsonObject jsonObject = jsonElement.getAsJsonObject();
                 if (jsonObject.has("data")) {
-                    return jsonObject.getAsJsonObject("data").getAsString();
+                    JsonElement dataElement = jsonObject.get("data");
+                    if (dataElement.isJsonObject() || dataElement.isJsonArray()) {
+                        return dataElement.toString();
+                    } else if (dataElement.isJsonPrimitive()) {
+                        return dataElement.getAsString();
+                    } else {
+                        return "";
+                    }
                 } else {
                     return "";
                 }
             }
             throw new JsonSyntaxException("Invalid JSON structure");
-        }catch (Exception e) {
+        } catch (Exception e) {
+            return e.getMessage();
+        }
+    }
+
+    private static String getError(String json) {
+        try {
+            JsonElement jsonElement = JsonParser.parseString(json);
+            if (jsonElement.isJsonObject()) {
+                JsonObject jsonObject = jsonElement.getAsJsonObject();
+                if (jsonObject.has("error")) {
+                    JsonElement errorElement = jsonObject.get("error");
+                    if (errorElement.isJsonPrimitive()) {
+                        return errorElement.getAsString();
+                    } else if (errorElement.isJsonObject() || errorElement.isJsonArray()) {
+                        return errorElement.toString();
+                    } else {
+                        return "Unknown error format";
+                    }
+                } else {
+                    return "";
+                }
+            }
+            throw new JsonSyntaxException("Invalid JSON structure");
+        } catch (Exception e) {
             return e.getMessage();
         }
     }

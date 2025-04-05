@@ -2,7 +2,9 @@ package ru.egmohf.cyberjur.api.objects;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.time.LocalDate;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -25,7 +27,7 @@ public class UserObject {
     private UserWordle wordle;
     private int completedTasks;
     private UserTasks tasks;
-    private LocalDate lastVisited;
+    private LocalDateTime lastVisited;
     private Notice[] notices;
     private Map<SocialNetwork, String> socialNetworks;
     private Map<AchievementsNames, Integer> statistics;
@@ -35,7 +37,7 @@ public class UserObject {
     private String[] blockedWidgets;
     private String[] usedPromoCodes;
     private int openedPokemons;
-    private LocalDate lastFoundPokemon;
+    private LocalDateTime lastFoundPokemon;
     private String[] friends;
     private Map<Actions, Integer> actions;
 
@@ -183,11 +185,11 @@ public class UserObject {
         this.tasks = tasks;
     }
 
-    public LocalDate getLastVisited() {
+    public LocalDateTime getLastVisited() {
         return lastVisited;
     }
 
-    public void setLastVisited(LocalDate lastVisited) {
+    public void setLastVisited(LocalDateTime lastVisited) {
         this.lastVisited = lastVisited;
     }
 
@@ -263,11 +265,11 @@ public class UserObject {
         this.openedPokemons = openedPokemons;
     }
 
-    public LocalDate getLastFoundPokemon() {
+    public LocalDateTime getLastFoundPokemon() {
         return lastFoundPokemon;
     }
 
-    public void setLastFoundPokemon(LocalDate lastFoundPokemon) {
+    public void setLastFoundPokemon(LocalDateTime lastFoundPokemon) {
         this.lastFoundPokemon = lastFoundPokemon;
     }
 
@@ -305,6 +307,16 @@ public class UserObject {
             public int getCode() {
                 return code;
             }
+        }
+
+        @Override
+        public String toString() {
+            return "UserInfo{" +
+                    "name='" + name + '\'' +
+                    ", surname='" + surname + '\'' +
+                    ", birthday='" + birthday + '\'' +
+                    ", gender=" + gender +
+                    '}';
         }
     }
 
@@ -372,6 +384,19 @@ public class UserObject {
         public void setSmiles(String smiles) {
             this.smiles = smiles;
         }
+
+        @Override
+        public String toString() {
+            return "UserPersonalization{" +
+                    "avatar='" + avatar + '\'' +
+                    ", background='" + background + '\'' +
+                    ", border='" + border + '\'' +
+                    ", about='" + about + '\'' +
+                    ", cubes='" + cubes + '\'' +
+                    ", pokemon='" + pokemon + '\'' +
+                    ", smiles='" + smiles + '\'' +
+                    '}';
+        }
     }
 
     public enum CollectionName {
@@ -389,14 +414,14 @@ public class UserObject {
     }
 
     public static class Customization{
-        private Map<ThemeName, String> theme;
+        private Map<String, String> theme;
         private boolean isShortToolbar;
 
-        public Map<ThemeName, String> getTheme() {
+        public Map<String, String> getTheme() {
             return theme;
         }
 
-        public void setTheme(Map<ThemeName, String> theme) {
+        public void setTheme(Map<String, String> theme) {
             this.theme = theme;
         }
 
@@ -408,16 +433,12 @@ public class UserObject {
             isShortToolbar = shortToolbar;
         }
 
-        public enum ThemeName{
-            @SerializedName("--first-bg-color") FIRST_BG_COLOR,
-            @SerializedName("--second-bg-color") SECOND_BG_COLOR,
-            @SerializedName("--red-color") RED_COLOR,
-            @SerializedName("--blue-color") BLUE_COLOR,
-            @SerializedName("--green-color") GREEN_COLOR,
-            @SerializedName("--white-color") WHITE_COLOR,
-            @SerializedName("--black-color") BLACK_COLOR,
-            @SerializedName("--gray-color") GRAY_COLOR,
-            @SerializedName("--yellow-color") YELLOW_COLOR
+        @Override
+        public String toString() {
+            return "Customization{" +
+                    "theme=" + theme +
+                    ", isShortToolbar=" + isShortToolbar +
+                    '}';
         }
     }
 
@@ -436,20 +457,20 @@ public class UserObject {
     }
 
     public static class UserWordle {
-        private LocalDate lastGame;
+        private LocalDateTime lastGame;
         private String id;
         private int winGames;
         private int loseGames;
         private int recordWinGames;
-        private int averageTrys;
+        private float averageTrys;
         private boolean notifyInTelegram;
-        private LocalDate lastNotify;
+        private LocalDateTime lastNotify;
 
-        public LocalDate getLastGame() {
+        public LocalDateTime getLastGame() {
             return lastGame;
         }
 
-        public void setLastGame(LocalDate lastGame) {
+        public void setLastGame(LocalDateTime lastGame) {
             this.lastGame = lastGame;
         }
 
@@ -485,11 +506,11 @@ public class UserObject {
             this.recordWinGames = recordWinGames;
         }
 
-        public int getAverageTrys() {
+        public float getAverageTrys() {
             return averageTrys;
         }
 
-        public void setAverageTrys(int averageTrys) {
+        public void setAverageTrys(float averageTrys) {
             this.averageTrys = averageTrys;
         }
 
@@ -501,18 +522,32 @@ public class UserObject {
             this.notifyInTelegram = notifyInTelegram;
         }
 
-        public LocalDate getLastNotify() {
+        public LocalDateTime getLastNotify() {
             return lastNotify;
         }
 
-        public void setLastNotify(LocalDate lastNotify) {
+        public void setLastNotify(LocalDateTime lastNotify) {
             this.lastNotify = lastNotify;
+        }
+
+        @Override
+        public String toString() {
+            return "UserWordle{" +
+                    "lastGame=" + lastGame +
+                    ", id='" + id + '\'' +
+                    ", winGames=" + winGames +
+                    ", loseGames=" + loseGames +
+                    ", recordWinGames=" + recordWinGames +
+                    ", averageTrys=" + averageTrys +
+                    ", notifyInTelegram=" + notifyInTelegram +
+                    ", lastNotify=" + lastNotify +
+                    '}';
         }
     }
 
     public static class UserTasks {
         private Map<String, Boolean> askedTask;
-        private Map<String, LocalDate> lastGivenTask;
+        private Map<String, LocalDateTime> lastGivenTask;
 
         public Map<String, Boolean> getAskedTask() {
             return askedTask;
@@ -522,26 +557,34 @@ public class UserObject {
             this.askedTask = askedTask;
         }
 
-        public Map<String, LocalDate> getLastGivenTask() {
+        public Map<String, LocalDateTime> getLastGivenTask() {
             return lastGivenTask;
         }
 
-        public void setLastGivenTask(Map<String, LocalDate> lastGivenTask) {
+        public void setLastGivenTask(Map<String, LocalDateTime> lastGivenTask) {
             this.lastGivenTask = lastGivenTask;
+        }
+
+        @Override
+        public String toString() {
+            return "UserTasks{" +
+                    "askedTask=" + askedTask +
+                    ", lastGivenTask=" + lastGivenTask +
+                    '}';
         }
     }
 
     public static class Notice{
-        private int id;
+        private String id;
         private String text;
-        private LocalDate date;
+        private LocalDateTime date;
         private boolean isRead;
 
-        public int getId() {
+        public String getId() {
             return id;
         }
 
-        public void setId(int id) {
+        public void setId(String id) {
             this.id = id;
         }
 
@@ -553,11 +596,11 @@ public class UserObject {
             this.text = text;
         }
 
-        public LocalDate getDate() {
+        public LocalDateTime getDate() {
             return date;
         }
 
-        public void setDate(LocalDate date) {
+        public void setDate(LocalDateTime date) {
             this.date = date;
         }
 
@@ -567,6 +610,16 @@ public class UserObject {
 
         public void setRead(boolean read) {
             isRead = read;
+        }
+
+        @Override
+        public String toString() {
+            return "Notice{" +
+                    "id='" + id + '\'' +
+                    ", text='" + text + '\'' +
+                    ", date=" + date +
+                    ", isRead=" + isRead +
+                    '}';
         }
     }
 
@@ -583,5 +636,42 @@ public class UserObject {
         @SerializedName("ВТБ") VTB,
         @SerializedName("Сбер") SBER,
         @SerializedName("Тинька") TINKOFF
+    }
+
+    @Override
+    public String toString() {
+        return "UserObject{" +
+                "login='" + login + '\'' +
+                ", email='" + email + '\'' +
+                ", telegram='" + telegram + '\'' +
+                ", publicId='" + publicId + '\'' +
+                ", info=" + info +
+                ", number=" + number +
+                ", personalization=" + personalization +
+                ", collections=" + collections +
+                ", thanks=" + thanks +
+                ", giveThanks=" + giveThanks +
+                ", role=" + role +
+                ", customization=" + customization +
+                ", achievements=" + Arrays.toString(achievements) +
+                ", verifying=" + verifying +
+                ", groups=" + Arrays.toString(groups) +
+                ", wordle=" + wordle +
+                ", completedTasks=" + completedTasks +
+                ", tasks=" + tasks +
+                ", lastVisited=" + lastVisited +
+                ", notices=" + Arrays.toString(notices) +
+                ", socialNetworks=" + socialNetworks +
+                ", statistics=" + statistics +
+                ", realMoney=" + realMoney +
+                ", cards=" + Arrays.toString(cards) +
+                ", decks=" + decks +
+                ", blockedWidgets=" + Arrays.toString(blockedWidgets) +
+                ", usedPromoCodes=" + Arrays.toString(usedPromoCodes) +
+                ", openedPokemons=" + openedPokemons +
+                ", lastFoundPokemon=" + lastFoundPokemon +
+                ", friends=" + Arrays.toString(friends) +
+                ", actions=" + actions +
+                '}';
     }
 }

@@ -1,8 +1,8 @@
 package ru.egmohf.cyberjur.saveData;
 
 public enum ConfigKeys {
-    BG_FIRST("first-bg-color", "#383C47"),
-    BG_SECOND("second-bg-color", "#272B34"),
+    BG_FIRST("first-bg", "#383C47"),
+    BG_SECOND("second-bg", "#272B34"),
     RED("red", "#FF4342"),
     BLUE("blue", "#3472FB"),
     WHITE("white", "#FEFEFE"),

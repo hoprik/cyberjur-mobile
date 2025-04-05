@@ -42,6 +42,7 @@ dependencies {
     implementation libs.navigation.ui
     implementation libs.okhttp
     implementation libs.gson
+    implementation libs.threetenabp
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core

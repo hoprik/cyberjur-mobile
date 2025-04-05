@@ -18,10 +18,9 @@ public class Cache {
         }
         instance = new Cache(activity);
         for (ConfigKeys key: ConfigKeys.values()) {
-            if (instance.hasData(key.getKey())){
+            if (!instance.hasData(key.getKey())){
                 instance.setData(key.getKey(), key.getDefaultValue());
             }
-
         }
     }
 
