@@ -8,6 +8,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import ru.egmohf.cyberjur.R;
+import ru.egmohf.cyberjur.api.interfaces.User;
 import ru.egmohf.cyberjur.databinding.ActivityMainBinding;
 import ru.egmohf.cyberjur.ui.PopupEngine;
 
@@ -22,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        User.getOne();
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each

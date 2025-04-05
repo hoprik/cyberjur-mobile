@@ -3,6 +3,8 @@ package ru.egmohf.cyberjur.ui;
 import android.app.Activity;
 import android.widget.Toast;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
 public class PopupEngine {
     private static PopupEngine INSTANCE;
 
@@ -28,6 +30,13 @@ public class PopupEngine {
         mainActivity.runOnUiThread(() -> {
             Toast.makeText(this.mainActivity, message, Toast.LENGTH_LONG).show();
         });
-
     }
+
+    public void reloadActivity(){
+        mainActivity.finish();
+        mainActivity.overridePendingTransition(0, 0);
+        mainActivity.startActivity(mainActivity.getIntent());
+        mainActivity.overridePendingTransition(0, 0);
+    }
+
 }

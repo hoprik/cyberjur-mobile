@@ -8,6 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import ru.egmohf.cyberjur.api.interfaces.User;
 import ru.egmohf.cyberjur.databinding.FragmentHomeBinding;
 
 public class HomeFragment extends Fragment {
@@ -21,6 +22,7 @@ public class HomeFragment extends Fragment {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+        User.getOne();
 
         final TextView textView = binding.textHome;
         homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);

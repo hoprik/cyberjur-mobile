@@ -7,6 +7,7 @@ import android.graphics.ColorFilter;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.GradientDrawable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
@@ -31,7 +32,7 @@ public class BaseDrawable extends GradientDrawable {
         // Set background color
         String bgColor = attributes.getString(R.styleable.BaseWidget_bgColor);
         if (bgColor == null) bgColor = "#00000000";
-        if (Cache.getInstance() != null &&Cache.getInstance().hasData(bgColor)) bgColor = Cache.getInstance().getStringData(bgColor, "");
+        if (Cache.getInstance().hasData(bgColor)) bgColor = Cache.getInstance().getStringData(bgColor, "");
         setColor(Color.parseColor(bgColor));
 
         if (view instanceof TextView) {

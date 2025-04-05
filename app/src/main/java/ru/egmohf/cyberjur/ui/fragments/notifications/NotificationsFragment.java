@@ -8,6 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import ru.egmohf.cyberjur.api.interfaces.User;
 import ru.egmohf.cyberjur.databinding.FragmentNotificationsBinding;
 
 public class NotificationsFragment extends Fragment {
@@ -21,6 +22,7 @@ public class NotificationsFragment extends Fragment {
 
         binding = FragmentNotificationsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+        User.getOne();
 
         final TextView textView = binding.textNotifications;
         notificationsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);

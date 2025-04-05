@@ -32,6 +32,7 @@ public class UserObject {
     private Map<SocialNetwork, String> socialNetworks;
     private Map<AchievementsNames, Integer> statistics;
     private int realMoney;
+    private int money;
     private int[] cards;
     private Map<String, Integer[]> decks;
     private String[] blockedWidgets;
@@ -87,6 +88,14 @@ public class UserObject {
 
     public void setNumber(int number) {
         this.number = number;
+    }
+
+    public int getMoney() {
+        return money;
+    }
+
+    public void setMoney(int money) {
+        this.money = money;
     }
 
     public UserPersonalization getPersonalization() {
@@ -294,6 +303,38 @@ public class UserObject {
         private String surname;
         private String birthday;
         private Gender gender;
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getSurname() {
+            return surname;
+        }
+
+        public void setSurname(String surname) {
+            this.surname = surname;
+        }
+
+        public String getBirthday() {
+            return birthday;
+        }
+
+        public void setBirthday(String birthday) {
+            this.birthday = birthday;
+        }
+
+        public Gender getGender() {
+            return gender;
+        }
+
+        public void setGender(Gender gender) {
+            this.gender = gender;
+        }
 
         public enum Gender {
             MALE(1), FEMALE(0);
@@ -664,6 +705,7 @@ public class UserObject {
                 ", socialNetworks=" + socialNetworks +
                 ", statistics=" + statistics +
                 ", realMoney=" + realMoney +
+                ", money=" + money +
                 ", cards=" + Arrays.toString(cards) +
                 ", decks=" + decks +
                 ", blockedWidgets=" + Arrays.toString(blockedWidgets) +

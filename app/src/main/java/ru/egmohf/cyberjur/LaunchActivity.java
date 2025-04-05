@@ -25,19 +25,16 @@ public class LaunchActivity extends AppCompatActivity {
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.setStatusBarColor(Color.parseColor(Cache.getInstance().getStringData(ConfigKeys.BG_SECOND.getKey(), "")));
-        User.login().observe(this, isLogin -> {
-            if (isLogin) {
-                User.auth();
-                runOnUiThread(() -> {
-                    startActivity(new Intent(this, MainActivity.class));
-                    finish();
-                });
-            }else{
-                runOnUiThread(() -> {
-                    startActivity(new Intent(this, LoginActivity.class));
-                    finish();
-                });
-            }
-        });
+        if (User.login()) {
+            runOnUiThread(() -> {
+                startActivity(new Intent(this, MainActivity.class));
+                finish();
+            });
+        }else{
+            runOnUiThread(() -> {
+                startActivity(new Intent(this, LoginActivity.class));
+                finish();
+            });
+        }
     }
 }

@@ -9,7 +9,6 @@ import ru.egmohf.cyberjur.api.helpers.ResponseWrapper;
 import ru.egmohf.cyberjur.api.objects.UserObject;
 import ru.egmohf.cyberjur.saveData.Cache;
 import ru.egmohf.cyberjur.saveData.ConfigKeys;
-import ru.egmohf.cyberjur.api.objects.UserObject.Customization.ThemeName;
 
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -32,14 +31,18 @@ public class User {
         return session_id;
     }
 
-    public static MutableLiveData<Boolean> login() {
+    public static boolean login() {
         Cache cache = Cache.getInstance();
-        Log.d("LOGIN_TEST", String.valueOf(cache.hasData(ConfigKeys.LOGIN.getKey())));
-        Log.d("PASSWORD_TEST", String.valueOf(cache.hasData(ConfigKeys.LOGIN.getKey())));
-        if (!cache.hasData(ConfigKeys.LOGIN.getKey()) || !cache.hasData(ConfigKeys.PASSWORD.getKey())) {
-            return new MutableLiveData<>(false);
+        if (!cache.getStringData(ConfigKeys.SESSION.getKey(), "").isEmpty() || !cache.getStringData(ConfigKeys.USER_ID.getKey(), "").isEmpty() ) {
+            ResponseWrapper responseWrapper = new ResponseWrapper(cache.getStringData(ConfigKeys.USER_PROFILE.getKey(), ""), null);
+            myProfile = responseWrapper.getParsedResponse(UserObject.class, "user");
+            Cache.getInstance().setData(ConfigKeys.USER_PROFILE.getKey(),responseWrapper.getAnswer());
+            updateTheme();
+            session_id = cache.getStringData(ConfigKeys.SESSION.getKey(), "");
+            user_id = cache.getStringData(ConfigKeys.USER_ID.getKey(), "");
+            return true;
         }
-        return login(cache.getStringData(ConfigKeys.LOGIN.getKey(), ""), cache.getStringData(ConfigKeys.PASSWORD.getKey(), ""));
+        return false;
     }
 
     public static MutableLiveData<Boolean> login(String usernameOrEmail, String password) {
@@ -52,8 +55,18 @@ public class User {
             @Override
             public void onSuccess(ResponseWrapper wrapper) {
                 session_id = wrapper.response.header("set-cookie").split("session_id=")[1].split(";")[0];
-                Cache.getInstance().setData(ConfigKeys.LOGIN.getKey(), usernameOrEmail);
-                Cache.getInstance().setData(ConfigKeys.PASSWORD.getKey(), password);
+                ApiHelper.postToBack("session/saveDevice", String.format("{\"password\":\"%s\"}", password), new ResponseCallback() {
+                    @Override
+                    public void onSuccess(ResponseWrapper wrapper) {
+
+                    }
+
+                    @Override
+                    public void onFailure(ResponseWrapper wrapper) {
+
+                    }
+                });
+                Cache.getInstance().setData(ConfigKeys.SESSION.getKey(), session_id);
                 result.postValue(true);
             }
 
@@ -69,7 +82,9 @@ public class User {
         ApiHelper.postToBack("user/getOne", "{}", new ResponseCallback() {
             @Override
             public void onSuccess(ResponseWrapper wrapper) {
-                myProfile = wrapper.getParsedResponse(UserObject.class);
+                myProfile = wrapper.getParsedResponse(UserObject.class, "user");
+                Cache.getInstance().setData(ConfigKeys.USER_PROFILE.getKey(),wrapper.getAnswer());
+                updateTheme();
             }
 
             @Override
@@ -84,18 +99,23 @@ public class User {
             @Override
             public void onSuccess(ResponseWrapper wrapper) {
                 myProfile = wrapper.getParsedResponse(UserObject.class, "user");
-                Log.d("PROFILE",myProfile.toString());
-                Map<String, String> elements = myProfile.getCustomization().getTheme();
-                elements.forEach((k,v)->{
-                    Cache.getInstance().setData(k.replace("--", "").replace("-color", ""),v);
-                });
+                updateTheme();
                 user_id = wrapper.response.header("set-cookie").split("user_id=")[1].split(";")[0];
+                Cache.getInstance().setData(ConfigKeys.USER_PROFILE.getKey(),wrapper.getAnswer());
+                Cache.getInstance().setData(ConfigKeys.USER_ID.getKey(),user_id);
             }
 
             @Override
             public void onFailure(ResponseWrapper wrapper) {
 
             }
+        });
+    }
+
+    private static void updateTheme(){
+        Map<String, String> elements = myProfile.getCustomization().getTheme();
+        elements.forEach((k,v)->{
+            Cache.getInstance().setData(k.replace("--", "").replace("-color", ""), v);
         });
     }
 

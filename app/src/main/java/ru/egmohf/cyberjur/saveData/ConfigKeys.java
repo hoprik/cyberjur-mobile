@@ -10,8 +10,8 @@ public enum ConfigKeys {
     GREY("grey", "#5D6C89"),
     BLACK("black", "#000000"),
     YELLOW("yellow", "#FFD700"),
-    LOGIN("userLogin", ""),
-    PASSWORD("userPassword", ""),
+    USER_ID("userID", ""),
+    SESSION("userSession", ""),
     USER_PROFILE("userProfile", "");
 
     private final String key;

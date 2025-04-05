@@ -2,7 +2,7 @@
 <ru.egmohf.cyberjur.ui.widget.CConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
                                                 xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
                                                 android:layout_height="match_parent" android:padding="10dp"
-                                                xmlns:app="http://schemas.android.com/apk/res-auto" app:bgColor="second-bg-color">
+                                                xmlns:app="http://schemas.android.com/apk/res-auto" app:bgColor="second-bg">
     <ru.egmohf.cyberjur.ui.widget.CTextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                                             android:layout_marginBottom="10dp"
                                             android:text='@string/eljur' app:txtColor="white"
@@ -13,7 +13,7 @@
                                             app:layout_constraintStart_toStartOf="parent"/>
     <ru.egmohf.cyberjur.ui.widget.CConstraintLayout android:layout_width="0dp" android:layout_height="wrap_content"
                                                     app:layout_constraintEnd_toEndOf="parent" android:padding="15dp"
-                                                    app:bgColor="first-bg-color" app:round="20dp"
+                                                    app:bgColor="first-bg" app:round="20dp"
                                                     app:layout_constraintStart_toStartOf="parent"
                                                     app:layout_constraintBottom_toBottomOf="parent"
                                                     app:layout_constraintTop_toTopOf="parent"
@@ -32,7 +32,7 @@
                                                    android:paddingBottom="10dp"
                                                    android:id="@+id/CLinerLayout">
             <ru.egmohf.cyberjur.ui.widget.Input
-                    app:bgColor="second-bg-color"
+                    app:bgColor="second-bg"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:inputType="text"
@@ -45,7 +45,7 @@
                     android:id="@+id/editTextText" android:layout_weight="1"/>
 
             <ru.egmohf.cyberjur.ui.widget.Input
-                    app:bgColor="second-bg-color"
+                    app:bgColor="second-bg"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:inputType="textPassword"
