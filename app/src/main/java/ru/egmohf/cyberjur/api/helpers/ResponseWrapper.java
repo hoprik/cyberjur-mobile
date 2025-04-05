@@ -1,4 +1,4 @@
-package ru.egmohf.cyberjur.api;
+package ru.egmohf.cyberjur.api.helpers;
 
 import com.google.gson.Gson;
 import okhttp3.Response;

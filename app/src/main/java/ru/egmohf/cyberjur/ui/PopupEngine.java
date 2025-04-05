@@ -8,8 +8,9 @@ public class PopupEngine {
 
     private Activity mainActivity;
 
-    public PopupEngine(){
+    public PopupEngine(Activity mainActivity){
         INSTANCE = this;
+        this.mainActivity = mainActivity;
     }
 
     public static PopupEngine getINSTANCE() {
@@ -24,6 +25,9 @@ public class PopupEngine {
     }
 
     public void sendNotify(String message){
-        Toast.makeText(this.mainActivity, message, Toast.LENGTH_LONG).show();
+        mainActivity.runOnUiThread(() -> {
+            Toast.makeText(this.mainActivity, message, Toast.LENGTH_LONG).show();
+        });
+
     }
 }
