@@ -1,5 +1,7 @@
 package ru.egmohf.cyberjur.ui.activities;
 
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,6 +12,8 @@ import androidx.navigation.ui.NavigationUI;
 import ru.egmohf.cyberjur.R;
 import ru.egmohf.cyberjur.api.interfaces.User;
 import ru.egmohf.cyberjur.databinding.ActivityMainBinding;
+import ru.egmohf.cyberjur.saveData.Cache;
+import ru.egmohf.cyberjur.saveData.ConfigKeys;
 import ru.egmohf.cyberjur.ui.PopupEngine;
 
 public class MainActivity extends AppCompatActivity {
@@ -27,6 +31,9 @@ public class MainActivity extends AppCompatActivity {
         User.getOne();
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
+        navView.setBackgroundColor(Color.parseColor(Cache.getInstance().getStringData(ConfigKeys.BG_SECOND.getKey(), "")));
+        navView.setItemIconTintList(new ColorStateList(new int[][]{new int[]{android.R.attr.state_checked}, new int[]{}}, new int[]{Color.parseColor(Cache.getInstance().getStringData(ConfigKeys.GREEN.getKey(), "")), Color.parseColor(Cache.getInstance().getStringData(ConfigKeys.WHITE.getKey(), ""))}));
+        navView.setItemTextColor(new ColorStateList(new int[][]{new int[]{android.R.attr.state_checked}, new int[]{}}, new int[]{Color.parseColor(Cache.getInstance().getStringData(ConfigKeys.GREEN.getKey(), "")), Color.parseColor(Cache.getInstance().getStringData(ConfigKeys.WHITE.getKey(), ""))}));
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(

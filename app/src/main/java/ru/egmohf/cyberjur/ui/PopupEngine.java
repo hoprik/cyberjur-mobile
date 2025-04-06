@@ -1,16 +1,24 @@
 package ru.egmohf.cyberjur.ui;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.widget.Toast;
-
-import static androidx.core.content.ContextCompat.startActivity;
+import android.graphics.Color;
+import android.util.DisplayMetrics;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.TextView;
+import com.google.android.material.snackbar.Snackbar;
+import ru.egmohf.cyberjur.R;
+import ru.egmohf.cyberjur.ui.widget.CConstraintLayout;
 
 public class PopupEngine {
     private static PopupEngine INSTANCE;
 
     private Activity mainActivity;
 
-    public PopupEngine(Activity mainActivity){
+    public PopupEngine(Activity mainActivity) {
         INSTANCE = this;
         this.mainActivity = mainActivity;
     }
@@ -22,17 +30,40 @@ public class PopupEngine {
         return INSTANCE;
     }
 
-    public void changeActivity(Activity newActivity){
+    public void changeActivity(Activity newActivity) {
         this.mainActivity = newActivity;
     }
 
-    public void sendNotify(String message){
+    @SuppressLint("RestrictedApi")
+    public void sendNotify(String message, String color) {
         mainActivity.runOnUiThread(() -> {
-            Toast.makeText(this.mainActivity, message, Toast.LENGTH_LONG).show();
+            LayoutInflater inflater = mainActivity.getLayoutInflater();
+            CConstraintLayout layout = (CConstraintLayout) inflater.inflate(R.layout.toast, mainActivity.findViewById(R.id.toast_root));
+            layout.setBgColor(color);
+            layout.setRound(40);
+            DisplayMetrics displayMetrics = mainActivity.getApplicationContext().getResources().getDisplayMetrics();
+            int screenWidth = displayMetrics.widthPixels;
+            int toastWidth = (int) (screenWidth * 0.7);
+
+            ((TextView)layout.findViewById(R.id.toastText)).setText(message);
+            Snackbar snackbar = Snackbar.make(mainActivity.findViewById(android.R.id.content), "", Snackbar.LENGTH_LONG);
+            Snackbar.SnackbarLayout snackbarView = (Snackbar.SnackbarLayout) snackbar.getView();
+            snackbarView.setBackgroundColor(Color.TRANSPARENT);
+            FrameLayout.LayoutParams params =(FrameLayout.LayoutParams)snackbarView.getLayoutParams();
+            params.gravity = Gravity.TOP;
+            snackbarView.setLayoutParams(params);
+
+            snackbarView.setPadding(0, 0, 0, 0);
+            snackbarView.addView(layout, 0);
+            snackbar.show();
         });
     }
 
-    public void reloadActivity(){
+    public void sendNotify(String message) {
+        sendNotify(message, "blue");
+    }
+
+    public void reloadActivity() {
         mainActivity.finish();
         mainActivity.overridePendingTransition(0, 0);
         mainActivity.startActivity(mainActivity.getIntent());

@@ -44,7 +44,7 @@ public class ApiHelper {
                         callback.onSuccess(new ResponseWrapper(data, response));
                     }
                 } catch (Exception e) {
-                    PopupEngine.getINSTANCE().sendNotify(e.getMessage());
+                    PopupEngine.getINSTANCE().sendNotify(e.getMessage(), "red");
                     Log.e("API_ERROR", e.getMessage());
                     callback.onFailure(new ResponseWrapper(true, e.getMessage()));
                     throw new RuntimeException(e);
