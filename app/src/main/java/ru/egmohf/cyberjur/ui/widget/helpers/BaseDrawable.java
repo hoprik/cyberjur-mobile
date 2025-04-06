@@ -1,4 +1,4 @@
-package ru.egmohf.cyberjur.ui.widget;
+package ru.egmohf.cyberjur.ui.widget.helpers;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -7,48 +7,30 @@ import android.graphics.ColorFilter;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.GradientDrawable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.AppCompatButton;
-import org.w3c.dom.Text;
 import ru.egmohf.cyberjur.R;
 import ru.egmohf.cyberjur.saveData.Cache;
-import ru.egmohf.cyberjur.saveData.Cache;
-
-import java.lang.reflect.Method;
 
 public class BaseDrawable extends GradientDrawable {
+    private AttributeSet attrs;
+    private View view;
     public BaseDrawable(View view, AttributeSet attrs) {
         super();
-        Context context = view.getContext();
-        TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.BaseWidget);
+        this.attrs = attrs;
+        this.view = view;
+    }
 
-        // Set corner radii
-        float[] radii = getCornerRadius(attributes);
+    private void setAttributes(TypedArray attrs){
+        float[] radii = getCornerRadius(attrs);
         setCornerRadii(radii);
 
         // Set background color
-        String bgColor = attributes.getString(R.styleable.BaseWidget_bgColor);
+        String bgColor = attrs.getString(R.styleable.BaseWidget_bgColor);
         if (bgColor == null) bgColor = "#00000000";
         if (Cache.getInstance().hasData(bgColor)) bgColor = Cache.getInstance().getStringData(bgColor, "");
         setColor(Color.parseColor(bgColor));
-
-        if (view instanceof TextView) {
-            String textColor = attributes.getString(R.styleable.BaseWidget_txtColor);
-            if (textColor == null) textColor = "#ffffff";
-            if (Cache.getInstance() != null && Cache.getInstance().hasData(textColor)) textColor = Cache.getInstance().getStringData(textColor, "");
-            ((TextView)view).setTextColor(Color.parseColor(textColor));
-
-            String textHintColor = attributes.getString(R.styleable.BaseWidget_txtHintColor);
-            if (textHintColor == null) textHintColor = "#80ffffff";
-            if (Cache.getInstance() != null && Cache.getInstance().hasData(textColor)) textHintColor = Cache.getInstance().getStringData(textHintColor, "");
-            ((TextView)view).setHintTextColor(Color.parseColor(textHintColor));
-        }
-
-        attributes.recycle();
-        view.setBackground(this);
+        attrs.recycle();
     }
 
     private float[] getCornerRadius(TypedArray attributes) {
@@ -95,6 +77,24 @@ public class BaseDrawable extends GradientDrawable {
             radii[xIndex] = radius;
             radii[yIndex] = radius;
         }
+    }
+
+    public void aplayTheme(){
+        if (attrs != null){
+            Context context = view.getContext();
+            TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.BaseWidget);
+            setAttributes(attributes);
+        }else{
+            if (view instanceof IBaseDrawable){
+                IBaseDrawable drawable = (IBaseDrawable) view;
+                String color = drawable.getBgColor();
+                if (color == null) color = "#00000000";
+                if (Cache.getInstance().hasData(color)) color = Cache.getInstance().getStringData(color, "");
+                setColor(Color.parseColor(color));
+                setCornerRadii(drawable.getRound());
+            }
+        }
+        view.setBackground(this);
     }
 
     @Override
