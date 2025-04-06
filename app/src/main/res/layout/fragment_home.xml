@@ -7,22 +7,23 @@
         android:layout_height="match_parent"
         tools:context=".ui.fragments.home.HomeFragment">
 
-    <TextView
-            android:id="@+id/text_home"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:textAlignment="center"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
     <ru.egmohf.cyberjur.ui.widget.CTextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                                            android:text="Hello, %name%"
-                                            app:layout_constraintEnd_toEndOf="parent"
+                                            android:text="@string/greetings" android:textSize="20sp"
+                                            app:layout_constraintEnd_toEndOf="parent" app:txtColor="white"
                                             app:layout_constraintStart_toStartOf="parent"
-                                            app:layout_constraintTop_toTopOf="parent"/>
+                                            app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="16dp"
+                                            app:layout_constraintHorizontal_bias="0.05" android:id="@+id/CTextView3"/>
+    <ru.egmohf.cyberjur.ui.widget.CButton android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                          android:text="@string/test_notify" app:bgColor="blue"
+                                          app:layout_constraintTop_toBottomOf="@+id/CTextView3"
+                                          android:id="@+id/notifyButton" app:round="10dp"
+                                          app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="16dp"
+                                          android:layout_marginStart="12dp"/>
+    <ru.egmohf.cyberjur.ui.widget.CButton android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                          android:text="@string/test_notify"
+                                          android:layout_marginTop="12dp" android:id="@+id/notifyButtonRed"
+                                          app:layout_constraintTop_toBottomOf="@+id/notifyButton"
+                                          app:layout_constraintStart_toStartOf="parent" app:round="10dp"
+                                          app:layout_constraintEnd_toEndOf="parent" app:bgColor="red"
+                                          app:layout_constraintHorizontal_bias="0.044"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,12 +14,10 @@ import ru.egmohf.cyberjur.R;
 import ru.egmohf.cyberjur.saveData.Cache;
 
 public class BaseDrawable extends GradientDrawable {
-    private AttributeSet attrs;
     private View view;
     public BaseDrawable(View view, AttributeSet attrs) {
         super();
-        this.attrs = attrs;
-        this.view = view;
+        this.view = view;;
 
         if (attrs != null){
             Context context = view.getContext();
@@ -37,7 +35,7 @@ public class BaseDrawable extends GradientDrawable {
         if (bgColor == null) bgColor = "#00000000";
         if (Cache.getInstance().hasData(bgColor)) bgColor = Cache.getInstance().getStringData(bgColor, "");
         setColor(Color.parseColor(bgColor));
-        attrs.recycle();
+        view.setBackground(this);
     }
 
     private float[] getCornerRadius(TypedArray attributes) {
@@ -90,7 +88,6 @@ public class BaseDrawable extends GradientDrawable {
         if (view instanceof IBaseDrawable){
             IBaseDrawable drawable = (IBaseDrawable) view;
             String color = drawable.getBgColor();
-            Log.d("BGCOLOR", color);
             if (color == null) color = "#00000000";
             if (Cache.getInstance().hasData(color)) color = Cache.getInstance().getStringData(color, "");
             setColor(Color.parseColor(color));

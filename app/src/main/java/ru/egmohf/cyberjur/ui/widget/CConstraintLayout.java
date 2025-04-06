@@ -34,7 +34,6 @@ public class CConstraintLayout extends ConstraintLayout implements IBaseDrawable
 
     @Override
     public String getBgColor() {
-        Log.d("Color", String.valueOf(this.helper));
         return this.helper.getBgColor();
     }
 

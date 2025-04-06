@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import ru.egmohf.cyberjur.api.interfaces.User;
 import ru.egmohf.cyberjur.databinding.FragmentHomeBinding;
+import ru.egmohf.cyberjur.ui.PopupEngine;
 
 public class HomeFragment extends Fragment {
 
@@ -17,15 +18,19 @@ public class HomeFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        HomeViewModel homeViewModel =
-                new ViewModelProvider(this).get(HomeViewModel.class);
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         User.getOne();
 
-        final TextView textView = binding.textHome;
-        homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        binding.notifyButton.setOnClickListener(view -> {
+            PopupEngine.getINSTANCE().sendNotify("Тест");
+        });
+
+        binding.notifyButtonRed.setOnClickListener(view -> {
+            PopupEngine.getINSTANCE().sendNotify("Тест c другим цветов", "red");
+        });
+
         return root;
     }
 

@@ -9,5 +9,6 @@
     <string name="login">Войти</string>
     <string name="eljur">Электронный журнал</string>
     <string name="url"></string>
-    <string name="preference_key">pfs</string>
+    <string name="greetings">Привет, %name%</string>
+    <string name="test_notify">Тест уведомлений</string>
 </resources>

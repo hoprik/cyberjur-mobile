@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.util.AttributeSet;
+import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
@@ -19,7 +20,6 @@ public class CButton extends AppCompatButton implements IBaseDrawable {
 
     public CButton(Context context, @Nullable @org.jetbrains.annotations.Nullable AttributeSet attrs) {
         super(context, attrs);
-        this.setTransformationMethod(null);
         BaseDrawable drawable = new BaseDrawable(this, attrs);
         this.helper = new DrawableHelper(drawable);
 
@@ -41,7 +41,6 @@ public class CButton extends AppCompatButton implements IBaseDrawable {
         setTextColor(textColor);
         String textHintColor = a.getString(R.styleable.BaseWidget_txtHintColor);
         setHintTextColor(textHintColor);
-        a.recycle();
     }
 
     public void setTextColor(String textColor) {

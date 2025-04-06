@@ -41,9 +41,6 @@ public class PopupEngine {
             CConstraintLayout layout = (CConstraintLayout) inflater.inflate(R.layout.toast, mainActivity.findViewById(R.id.toast_root));
             layout.setBgColor(color);
             layout.setRound(40);
-            DisplayMetrics displayMetrics = mainActivity.getApplicationContext().getResources().getDisplayMetrics();
-            int screenWidth = displayMetrics.widthPixels;
-            int toastWidth = (int) (screenWidth * 0.7);
 
             ((TextView)layout.findViewById(R.id.toastText)).setText(message);
             Snackbar snackbar = Snackbar.make(mainActivity.findViewById(android.R.id.content), "", Snackbar.LENGTH_LONG);
@@ -55,6 +52,7 @@ public class PopupEngine {
 
             snackbarView.setPadding(0, 0, 0, 0);
             snackbarView.addView(layout, 0);
+            snackbarView.setOnClickListener(v -> snackbar.dismiss());
             snackbar.show();
         });
     }

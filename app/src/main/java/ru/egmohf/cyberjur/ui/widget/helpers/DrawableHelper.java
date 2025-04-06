@@ -19,7 +19,6 @@ public class DrawableHelper {
     }
 
     public String getBgColor() {
-        Log.d("DrawableHelper", "getBgColor: " + this.bgColor);
         return this.bgColor;
     }
 
