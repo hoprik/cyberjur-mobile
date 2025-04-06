@@ -29,6 +29,7 @@ public class Input extends AppCompatEditText implements IBaseDrawable {
         super(context);
         BaseDrawable drawable = new BaseDrawable(this, null);
         this.helper = new DrawableHelper(drawable);
+        this.helper.drawable.aplayTheme();
     }
 
     private void setAttributes(TypedArray a) {

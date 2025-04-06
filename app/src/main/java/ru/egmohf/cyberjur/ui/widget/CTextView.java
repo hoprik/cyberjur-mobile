@@ -44,6 +44,7 @@ public class CTextView extends AppCompatTextView implements IBaseDrawable {
         super(context);
         BaseDrawable drawable = new BaseDrawable(this, null);
         this.helper = new DrawableHelper(drawable);
+        this.helper.drawable.aplayTheme();
 
         if (this.getText().toString().contains("%name%")) {
             this.setText(getText().toString().replace("%name%", User.getMyProfile().getInfo().getName()));

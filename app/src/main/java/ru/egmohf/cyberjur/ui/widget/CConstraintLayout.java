@@ -24,6 +24,7 @@ public class CConstraintLayout extends ConstraintLayout implements IBaseDrawable
         super(context);
         BaseDrawable drawable = new BaseDrawable(this, null);
         this.helper = new DrawableHelper(drawable);
+        this.helper.drawable.aplayTheme();
     }
 
     @Override

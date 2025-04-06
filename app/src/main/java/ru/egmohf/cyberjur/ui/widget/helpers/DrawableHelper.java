@@ -7,11 +7,10 @@ import java.util.Arrays;
 public class DrawableHelper {
     private String bgColor = "#000000";
     private float[] rounds = new float[8]; // [TLx, TLy, TRx, TRy, BRx, BRy, BLx, BLy]
-    private BaseDrawable drawable;
+    public BaseDrawable drawable;
 
     public DrawableHelper(BaseDrawable drawable) {
         this.drawable = drawable;
-        this.drawable.aplayTheme();
     }
 
     public void setBgColor(String color) {

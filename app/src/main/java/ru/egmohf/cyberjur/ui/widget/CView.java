@@ -20,6 +20,7 @@ public class CView extends View implements IBaseDrawable {
         super(context);
         BaseDrawable drawable = new BaseDrawable(this, null);
         this.helper = new DrawableHelper(drawable);
+        this.helper.drawable.aplayTheme();
     }
 
     @Override

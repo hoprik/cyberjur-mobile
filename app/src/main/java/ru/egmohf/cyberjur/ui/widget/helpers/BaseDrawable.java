@@ -7,6 +7,7 @@ import android.graphics.ColorFilter;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.GradientDrawable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import androidx.annotation.Nullable;
 import ru.egmohf.cyberjur.R;
@@ -19,6 +20,12 @@ public class BaseDrawable extends GradientDrawable {
         super();
         this.attrs = attrs;
         this.view = view;
+
+        if (attrs != null){
+            Context context = view.getContext();
+            TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.BaseWidget);
+            setAttributes(attributes);
+        }
     }
 
     private void setAttributes(TypedArray attrs){
@@ -80,19 +87,14 @@ public class BaseDrawable extends GradientDrawable {
     }
 
     public void aplayTheme(){
-        if (attrs != null){
-            Context context = view.getContext();
-            TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.BaseWidget);
-            setAttributes(attributes);
-        }else{
-            if (view instanceof IBaseDrawable){
-                IBaseDrawable drawable = (IBaseDrawable) view;
-                String color = drawable.getBgColor();
-                if (color == null) color = "#00000000";
-                if (Cache.getInstance().hasData(color)) color = Cache.getInstance().getStringData(color, "");
-                setColor(Color.parseColor(color));
-                setCornerRadii(drawable.getRound());
-            }
+        if (view instanceof IBaseDrawable){
+            IBaseDrawable drawable = (IBaseDrawable) view;
+            String color = drawable.getBgColor();
+            Log.d("BGCOLOR", color);
+            if (color == null) color = "#00000000";
+            if (Cache.getInstance().hasData(color)) color = Cache.getInstance().getStringData(color, "");
+            setColor(Color.parseColor(color));
+            setCornerRadii(drawable.getRound());
         }
         view.setBackground(this);
     }

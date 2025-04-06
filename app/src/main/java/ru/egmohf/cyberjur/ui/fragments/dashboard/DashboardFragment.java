@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import ru.egmohf.cyberjur.api.interfaces.User;
 import ru.egmohf.cyberjur.databinding.FragmentDashboardBinding;
+import ru.egmohf.cyberjur.ui.PopupEngine;
 
 public class DashboardFragment extends Fragment {
 
@@ -23,6 +24,8 @@ public class DashboardFragment extends Fragment {
         binding = FragmentDashboardBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         User.getOne();
+
+        PopupEngine.getINSTANCE().sendNotify("Тест");
 
         final TextView textView = binding.textDashboard;
         dashboardViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
