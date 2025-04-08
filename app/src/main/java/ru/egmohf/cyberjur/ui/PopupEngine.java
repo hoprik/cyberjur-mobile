@@ -38,7 +38,7 @@ public class PopupEngine {
     public void sendNotify(String message, String color) {
         mainActivity.runOnUiThread(() -> {
             LayoutInflater inflater = mainActivity.getLayoutInflater();
-            CConstraintLayout layout = (CConstraintLayout) inflater.inflate(R.layout.toast, mainActivity.findViewById(R.id.toast_root));
+            CConstraintLayout layout = (CConstraintLayout) inflater.inflate(R.layout.toast, mainActivity.findViewById(R.id.toast_root), false);
             layout.setBgColor(color);
             layout.setRound(40);
 
