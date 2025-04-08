@@ -10,5 +10,6 @@
         <attr name="bgColor" format="string"/>
         <attr name="txtColor" format="string"/>
         <attr name="txtHintColor" format="string"/>
+        <attr name="imageUrl" format="string"/>
     </declare-styleable>
 </resources>

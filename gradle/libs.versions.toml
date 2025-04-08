@@ -1,5 +1,6 @@
 [versions]
 agp = "8.6.0-alpha07"
+disklrucache = "2.0.2"
 gson = "2.12.1"
 junit = "4.13.2"
 junitVersion = "1.2.1"
@@ -15,6 +16,7 @@ okhttp = "4.12.0"
 threetenabp = "1.4.6"
 
 [libraries]
+disklrucache = { module = "com.jakewharton:disklrucache", version.ref = "disklrucache" }
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }

@@ -1,8 +1,12 @@
 package ru.egmohf.cyberjur.api.helpers;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import com.google.gson.*;
 import okhttp3.*;
+import org.jetbrains.annotations.NotNull;
 import ru.egmohf.cyberjur.api.interfaces.User;
 import ru.egmohf.cyberjur.ui.PopupEngine;
 
@@ -33,7 +37,6 @@ public class ApiHelper {
             public void onResponse(Call call, Response response) {
                 try {
                     String responseBody = response.body().string();
-                    Log.d("API_RESPONSE", "Response: " + responseBody);
 
                     if (hasError(responseBody)) {
                         String error = getError(responseBody);
@@ -49,6 +52,26 @@ public class ApiHelper {
                     callback.onFailure(new ResponseWrapper(true, e.getMessage()));
                     throw new RuntimeException(e);
                 }
+            }
+        });
+    }
+
+    public static void downloadImage(String imageUrl, ResponseCallback callback){
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url(imageUrl)
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) {
+                callback.onSuccess(new ResponseWrapper("", response));
+            }
+
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                Log.e("IMAGE_DOWNLOAD", "Failed to download image: " + e.getMessage());
             }
         });
     }

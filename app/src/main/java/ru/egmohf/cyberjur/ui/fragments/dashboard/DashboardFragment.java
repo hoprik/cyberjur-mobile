@@ -25,8 +25,6 @@ public class DashboardFragment extends Fragment {
         View root = binding.getRoot();
         User.getOne();
 
-        PopupEngine.getINSTANCE().sendNotify("Тест");
-
         final TextView textView = binding.textDashboard;
         dashboardViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;

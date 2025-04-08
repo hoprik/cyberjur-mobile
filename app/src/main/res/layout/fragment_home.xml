@@ -26,4 +26,12 @@
                                           app:layout_constraintStart_toStartOf="parent" app:round="10dp"
                                           app:layout_constraintEnd_toEndOf="parent" app:bgColor="red"
                                           app:layout_constraintHorizontal_bias="0.044"/>
+
+    <ru.egmohf.cyberjur.ui.widget.image.CImageView android:layout_width="90dp" android:layout_height="90dp"
+                                                   app:layout_constraintEnd_toEndOf="parent"
+                                                   android:layout_marginEnd="4dp" app:imageUrl="https://school.kiberlandia.ru/user-1728639891715-6e8f8108-1f5f-4605-93c5-058d5413721c/avatar-1738387356119.jpg"
+                                                   app:layout_constraintStart_toEndOf="@+id/CTextView3"
+                                                   app:layout_constraintTop_toTopOf="parent"
+                                                   android:layout_marginTop="28dp" app:round="10dp"
+                                                   app:layout_constraintHorizontal_bias="0.472"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
