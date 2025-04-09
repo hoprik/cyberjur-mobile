@@ -54,7 +54,7 @@ public class SidebarDialog extends Dialog {
             this.sidebar.setBinding(binding);
             this.sidebar.setContext(this.getContext());
             this.sidebar.setInflater(this.getLayoutInflater());
-            binding.view.addView(sidebar.render());
+            binding.sidebarView.addView(sidebar.render());
         }
     }
 
