@@ -14,7 +14,7 @@ import ru.egmohf.cyberjur.api.interfaces.User;
 import ru.egmohf.cyberjur.databinding.ActivityMainBinding;
 import ru.egmohf.cyberjur.saveData.Cache;
 import ru.egmohf.cyberjur.saveData.ConfigKeys;
-import ru.egmohf.cyberjur.ui.PopupEngine;
+import ru.egmohf.cyberjur.ui.popup.PopupEngine;
 
 public class MainActivity extends AppCompatActivity {
 

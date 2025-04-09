@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import ru.egmohf.cyberjur.api.interfaces.User;
 import ru.egmohf.cyberjur.saveData.Cache;
 import ru.egmohf.cyberjur.saveData.ConfigKeys;
-import ru.egmohf.cyberjur.ui.PopupEngine;
+import ru.egmohf.cyberjur.ui.popup.PopupEngine;
 import ru.egmohf.cyberjur.ui.activities.LoginActivity;
 import ru.egmohf.cyberjur.ui.activities.MainActivity;
 

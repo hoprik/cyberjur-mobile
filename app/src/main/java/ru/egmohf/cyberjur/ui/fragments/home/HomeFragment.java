@@ -4,13 +4,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import ru.egmohf.cyberjur.api.interfaces.User;
 import ru.egmohf.cyberjur.databinding.FragmentHomeBinding;
-import ru.egmohf.cyberjur.ui.PopupEngine;
+import ru.egmohf.cyberjur.ui.popup.PopupEngine;
 
 public class HomeFragment extends Fragment {
 
@@ -29,6 +27,10 @@ public class HomeFragment extends Fragment {
 
         binding.notifyButtonRed.setOnClickListener(view -> {
             PopupEngine.getINSTANCE().sendNotify("Тест c другим цветов", "red");
+        });
+
+        binding.testModalButton.setOnClickListener(view -> {
+            PopupEngine.getINSTANCE().createSidebar();
         });
 
         return root;

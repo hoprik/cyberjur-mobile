@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import ru.egmohf.cyberjur.api.interfaces.User;
 import ru.egmohf.cyberjur.databinding.FragmentDashboardBinding;
-import ru.egmohf.cyberjur.ui.PopupEngine;
 
 public class DashboardFragment extends Fragment {
 

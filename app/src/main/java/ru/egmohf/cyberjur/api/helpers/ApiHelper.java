@@ -1,16 +1,12 @@
 package ru.egmohf.cyberjur.api.helpers;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.util.Log;
 import com.google.gson.*;
 import okhttp3.*;
 import org.jetbrains.annotations.NotNull;
 import ru.egmohf.cyberjur.api.interfaces.User;
-import ru.egmohf.cyberjur.ui.PopupEngine;
+import ru.egmohf.cyberjur.ui.popup.PopupEngine;
 
-import java.io.EOFException;
 import java.io.IOException;
 
 public class ApiHelper {

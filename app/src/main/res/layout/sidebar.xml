@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ru.egmohf.cyberjur.ui.widget.CConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                android:layout_width="match_parent"
+                                                xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                app:bgColor="gray"
+                                                android:layout_height="match_parent">
+    <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" android:id="@+id/view" android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+    <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp" app:srcCompat="@drawable/baseline_close_24"
+            android:id="@+id/sidebarClose"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"/>
+    <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp" app:srcCompat="@drawable/menu_24px" android:id="@+id/sidebarContextMenu"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"/>
+</ru.egmohf.cyberjur.ui.widget.CConstraintLayout>

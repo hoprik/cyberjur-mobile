@@ -6,4 +6,12 @@
     <style name="MyButton" parent="Widget.AppCompat.Button">
         <item name="android:textAllCaps">false</item>
     </style>
+    <style name="DialogSlideAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_in_right</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_right</item>
+    </style>
+    <style name="CustomPopup" parent="Widget.AppCompat.PopupMenu">
+        <item name="android:popupBackground">#383C47</item>
+        <item name="android:textSize">15sp</item>
+    </style>
 </resources>

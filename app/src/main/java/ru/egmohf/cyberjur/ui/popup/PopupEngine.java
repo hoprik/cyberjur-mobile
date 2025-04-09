@@ -1,16 +1,17 @@
-package ru.egmohf.cyberjur.ui;
+package ru.egmohf.cyberjur.ui.popup;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Dialog;
 import android.graphics.Color;
-import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import com.google.android.material.snackbar.Snackbar;
 import ru.egmohf.cyberjur.R;
+import ru.egmohf.cyberjur.ui.popup.sidebar.SidebarDialog;
+import ru.egmohf.cyberjur.ui.sidebar.TestSide;
 import ru.egmohf.cyberjur.ui.widget.CConstraintLayout;
 
 public class PopupEngine {
@@ -59,6 +60,11 @@ public class PopupEngine {
 
     public void sendNotify(String message) {
         sendNotify(message, "blue");
+    }
+
+    public void createSidebar(){
+        SidebarDialog dialog = new SidebarDialog(mainActivity, new TestSide());
+        dialog.show();
     }
 
     public void reloadActivity() {

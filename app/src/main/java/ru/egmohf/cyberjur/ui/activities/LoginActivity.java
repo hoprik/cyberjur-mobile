@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import ru.egmohf.cyberjur.R;
 import ru.egmohf.cyberjur.api.interfaces.User;
 import ru.egmohf.cyberjur.databinding.ActivityLoginBinding;
-import ru.egmohf.cyberjur.ui.PopupEngine;
+import ru.egmohf.cyberjur.ui.popup.PopupEngine;
 import ru.egmohf.cyberjur.ui.widget.CConstraintLayout;
 import ru.egmohf.cyberjur.ui.widget.Input;
 
