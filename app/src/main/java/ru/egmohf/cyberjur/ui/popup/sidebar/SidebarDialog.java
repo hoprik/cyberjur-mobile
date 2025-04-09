@@ -37,22 +37,25 @@ public class SidebarDialog extends Dialog {
         setContentView(binding.getRoot());
 
         binding.sidebarClose.setOnClickListener(v -> dismiss());
-        binding.sidebarContextMenu.setOnClickListener(v->{
-            PopupMenu popupMenu = new PopupMenu(getContext(), binding.sidebarContextMenu);
-            popupMenu.getMenu().add("Тест");
-            popupMenu.getMenu().add("Тест");
-            popupMenu.getMenu().add("Тест");
-            popupMenu.getMenu().add("Тест");
-            popupMenu.show();
-        });
 
         if (this.sidebar != null) {
+            if (sidebar instanceof ISidebarMenuItems){
+                binding.sidebarContextMenu.setOnClickListener(v->{
+                    ISidebarMenuItems sidebarMenuItems = (ISidebarMenuItems) sidebar;
+                    PopupMenu popupMenu = new PopupMenu(getContext(), binding.sidebarContextMenu);
+                    sidebarMenuItems.getMenuItems().forEach(item -> popupMenu.getMenu().add(item));
+                    popupMenu.setOnMenuItemClickListener(sidebarMenuItems.getOnMenuItemClickListener());
+                    popupMenu.show();
+                });
+            }else{
+                binding.sidebarContextMenu.setVisibility(View.GONE);
+            }
+
             this.sidebar.setBinding(binding);
             this.sidebar.setContext(this.getContext());
             this.sidebar.setInflater(this.getLayoutInflater());
             binding.view.addView(sidebar.render());
         }
-
     }
 
     @Override
