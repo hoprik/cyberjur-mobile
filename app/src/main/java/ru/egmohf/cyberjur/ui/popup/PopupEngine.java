@@ -10,6 +10,8 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import com.google.android.material.snackbar.Snackbar;
 import ru.egmohf.cyberjur.R;
+import ru.egmohf.cyberjur.ui.popup.modal.Modal;
+import ru.egmohf.cyberjur.ui.popup.modal.ModalDialog;
 import ru.egmohf.cyberjur.ui.popup.sidebar.Sidebar;
 import ru.egmohf.cyberjur.ui.popup.sidebar.SidebarDialog;
 import ru.egmohf.cyberjur.ui.sidebar.TestSide;
@@ -65,6 +67,11 @@ public class PopupEngine {
 
     public void createSidebar(Sidebar sidebar){
         SidebarDialog dialog = new SidebarDialog(mainActivity, sidebar);
+        dialog.show();
+    }
+
+    public void createModal(Modal modal){
+        ModalDialog dialog = new ModalDialog(mainActivity, modal);
         dialog.show();
     }
 

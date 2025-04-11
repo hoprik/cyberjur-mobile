@@ -14,4 +14,8 @@
         <item name="android:popupBackground">#383C47</item>
         <item name="android:textSize">15sp</item>
     </style>
+    <style name="ModalSlideAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_in_up</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_up</item>
+    </style>
 </resources>

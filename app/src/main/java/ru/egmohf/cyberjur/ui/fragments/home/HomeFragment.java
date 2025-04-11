@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import ru.egmohf.cyberjur.api.interfaces.User;
 import ru.egmohf.cyberjur.databinding.FragmentHomeBinding;
+import ru.egmohf.cyberjur.ui.modal.ModalTest;
 import ru.egmohf.cyberjur.ui.popup.PopupEngine;
 import ru.egmohf.cyberjur.ui.sidebar.TestSide;
 
@@ -32,6 +33,10 @@ public class HomeFragment extends Fragment {
 
         binding.testModalButton.setOnClickListener(view -> {
             PopupEngine.getINSTANCE().createSidebar(new TestSide());
+        });
+
+        binding.testModal2Button.setOnClickListener(view -> {
+            PopupEngine.getINSTANCE().createModal(new ModalTest());
         });
 
         return root;
