@@ -25,12 +25,14 @@ public class Cache {
     private final Map<String, Object> tempCache;
     private LruCache<String, Bitmap> memoryCache;
     private DiskLruCache diskLruCache;
+    private okhttp3.Cache okhttp3Cache;
 
     private Cache(Activity activity) {
         this.sharedPreferences = activity.getPreferences(Context.MODE_PRIVATE);
         this.tempCache = new HashMap<>();
         initBitmapTemp();
         initBitmapCache(activity.getApplicationContext());
+        initApiCache(activity.getApplicationContext());
     }
 
     private Cache(Activity activity, Map<String, Object> tempCache, LruCache<String, Bitmap> memoryCache) {
@@ -88,6 +90,12 @@ public class Cache {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private void initApiCache(Context context) {
+        long cacheSize = 10 * 1024 * 1024;
+        File cacheDir = new File(context.getCacheDir(), "okhttp_cache");
+        this.okhttp3Cache = new okhttp3.Cache(cacheDir, cacheSize);
     }
 
     public void setData(String key, String value) {
@@ -191,6 +199,14 @@ public class Cache {
             return this.tempCache.containsKey(key);
         }
         return this.sharedPreferences.contains(key);
+    }
+
+    public boolean isWorkApiCache() {
+        return this.okhttp3Cache != null;
+    }
+
+    public okhttp3.Cache getApiCache() {
+        return this.okhttp3Cache;
     }
 
     public void removeData(String key) {
