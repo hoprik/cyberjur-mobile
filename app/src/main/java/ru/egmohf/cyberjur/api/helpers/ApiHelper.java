@@ -47,7 +47,7 @@ public class ApiHelper {
                 .post(body)
                 .build();
 
-        Callback reqCallback = new Callback() {
+        Callback netCallback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 callback.onFailure(new ResponseWrapper(true, e.getMessage()));
@@ -61,6 +61,7 @@ public class ApiHelper {
                     if (hasError(responseBody)) {
                         String error = getError(responseBody);
                         Log.e("API_ERROR", error);
+                        PopupEngine.getINSTANCE().sendNotify(error, "red");
                         callback.onFailure(new ResponseWrapper(true, error));
                     } else {
                         String data = getDataJson(responseBody);
@@ -75,8 +76,38 @@ public class ApiHelper {
             }
         };
 
-        client.newCall(cacheRequest).enqueue(reqCallback);
-        client.newCall(netRequest).enqueue(reqCallback);
+        Callback cacheCallback = new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) {
+                if (response.isSuccessful()) {
+                    try {
+                        String responseBody = response.body().string();
+
+                        if (hasError(responseBody)) {
+                            String error = getError(responseBody);
+                            Log.e("API_ERROR", error);
+                            PopupEngine.getINSTANCE().sendNotify(error, "red");
+                            callback.onFailure(new ResponseWrapper(true, error));
+                        } else {
+                            String data = getDataJson(responseBody);
+                            callback.onSuccess(new ResponseWrapper(data, response));
+                        }
+                    } catch (Exception e) {
+                        PopupEngine.getINSTANCE().sendNotify(e.getMessage(), "red");
+                        Log.e("API_ERROR", e.getMessage());
+                        callback.onFailure(new ResponseWrapper(true, e.getMessage()));
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+        };
+
+        client.newCall(cacheRequest).enqueue(cacheCallback);
+        client.newCall(netRequest).enqueue(netCallback);
 
     }
 
