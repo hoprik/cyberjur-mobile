@@ -7,6 +7,8 @@ import android.graphics.Color;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import com.google.android.material.snackbar.Snackbar;
@@ -21,6 +23,7 @@ import ru.egmohf.cyberjur.ui.sidebar.TestSide;
 import ru.egmohf.cyberjur.ui.widget.CButton;
 import ru.egmohf.cyberjur.ui.widget.CConstraintLayout;
 import ru.egmohf.cyberjur.ui.widget.CLinerLayout;
+import ru.egmohf.cyberjur.ui.widget.CTextView;
 
 public class PopupEngine {
     private static PopupEngine INSTANCE;
@@ -88,6 +91,7 @@ public class PopupEngine {
                 }
             }
             layout.setRound(40);
+            CTextView textView = layout.findViewById(R.id.toastText);
 
             CLinerLayout linerLayout = layout.findViewById(R.id.toastButtonRoot);
             for (NotificationObject.Action action: notificationObject.getActions()) {
@@ -95,7 +99,8 @@ public class PopupEngine {
                 linerLayout.addView(button);
             }
 
-            ((TextView)layout.findViewById(R.id.toastText)).setText(notificationObject.getMessage());
+            textView.setText(notificationObject.getMessage());
+
             Snackbar snackbar = Snackbar.make(mainActivity.findViewById(android.R.id.content), "", Snackbar.LENGTH_LONG);
             Snackbar.SnackbarLayout snackbarView = (Snackbar.SnackbarLayout) snackbar.getView();
             snackbarView.setBackgroundColor(Color.TRANSPARENT);
@@ -116,6 +121,10 @@ public class PopupEngine {
         button.setRound(15);
         button.setBgColor("#80000000");
         button.setPadding(5,5,5,5);
+        ViewGroup.LayoutParams layoutParams = button.getLayoutParams();
+        ViewGroup.MarginLayoutParams marginLayoutParams = new ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        marginLayoutParams.setMargins(5,0,5,0);
+        button.setLayoutParams(marginLayoutParams);
         switch (action.getName()){
             case INVITE_CUBES:
                 button.setText("Играть");
