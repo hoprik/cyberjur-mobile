@@ -27,11 +27,25 @@ public class SocketWrapper {
 
     public void register(){
         ApiSocket socket = ApiSocket.getInstance();
+
         socket.on("notifyUser", (event) -> {
             JSONObject jsonObject = (JSONObject) event[0];
             NotificationObject notice = Utils.parse(jsonObject.toString(), NotificationObject.class);
-            Log.i("notifyUser", "notifyUser");
             PopupEngine.getINSTANCE().sendNotify(notice);
+        });
+
+        socket.on("notifyAll", (event) -> {
+            JSONObject jsonObject = (JSONObject) event[0];
+            NotificationObject notice = Utils.parse(jsonObject.toString(), NotificationObject.class);
+            PopupEngine.getINSTANCE().sendNotify(notice);
+        });
+
+        socket.on("newAchievement", (event) -> {
+            PopupEngine.getINSTANCE().sendNotify("Вы получили новое достижение!");
+        });
+
+        socket.on("closeSession", (event) -> {
+            // TODO: Выход пользователя из приложения
         });
     }
 
