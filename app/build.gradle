@@ -44,6 +44,10 @@ dependencies {
     implementation libs.gson
     implementation libs.threetenabp
     implementation libs.disklrucache
+    implementation (libs.socket.io.client) {
+        // excluding org.json which is provided by Android
+        exclude group: 'org.json', module: 'json'
+    }
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core

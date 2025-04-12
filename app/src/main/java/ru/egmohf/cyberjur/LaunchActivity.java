@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 import androidx.appcompat.app.AppCompatActivity;
+import ru.egmohf.cyberjur.api.SocketWrapper;
 import ru.egmohf.cyberjur.api.interfaces.User;
 import ru.egmohf.cyberjur.saveData.Cache;
 import ru.egmohf.cyberjur.saveData.ConfigKeys;
@@ -26,6 +27,7 @@ public class LaunchActivity extends AppCompatActivity {
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.setStatusBarColor(Color.parseColor(Cache.getInstance().getStringData(ConfigKeys.BG_SECOND.getKey(), "")));
         if (User.login()) {
+            SocketWrapper.init();
             runOnUiThread(() -> {
                 startActivity(new Intent(this, MainActivity.class));
                 finish();

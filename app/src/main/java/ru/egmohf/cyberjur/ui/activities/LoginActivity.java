@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import ru.egmohf.cyberjur.R;
+import ru.egmohf.cyberjur.api.SocketWrapper;
 import ru.egmohf.cyberjur.api.interfaces.User;
 import ru.egmohf.cyberjur.databinding.ActivityLoginBinding;
 import ru.egmohf.cyberjur.ui.popup.PopupEngine;
@@ -30,6 +31,7 @@ public class LoginActivity extends AppCompatActivity {
             User.login(loginOrEmail.getText().toString(), password.getText().toString()).observe(this, isLogin -> {
                 if (isLogin) {
                     User.auth();
+                    SocketWrapper.init();
                     runOnUiThread(() -> {
                         startActivity(new Intent(this, MainActivity.class));
                         finish();

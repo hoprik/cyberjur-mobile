@@ -7,6 +7,7 @@ import com.google.gson.stream.JsonWriter;
 import okhttp3.Response;
 import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
+import ru.egmohf.cyberjur.Utils;
 import ru.egmohf.cyberjur.api.objects.UserObject;
 
 import java.io.IOException;
@@ -84,66 +85,7 @@ public class ResponseWrapper {
     }
 
     public <T> T getParsedResponse(String json, Class<T> responseType) {
-        Gson gson = new GsonBuilder().
-                registerTypeAdapter(LocalDateTime.class, new LocalDateTimeTypeAdapter()).
-                registerTypeAdapterFactory(new SafeMapTypeAdapterFactory()).
-                create();
-        return gson.fromJson(json, responseType);
+        return Utils.parse(json, responseType);
     }
 
-    public static class LocalDateTimeTypeAdapter implements JsonSerializer<LocalDateTime>, JsonDeserializer<LocalDateTime> {
-        private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
-
-        @Override
-        public LocalDateTime deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
-                throws JsonParseException {
-            try {
-                // Преобразуем строку в LocalDateTime
-                return LocalDateTime.parse(json.getAsString(), FORMATTER);
-            } catch (Exception e) {
-                throw new JsonParseException("Неверный формат даты: " + json.getAsString(), e);
-            }
-        }
-
-        @Override
-        public JsonElement serialize(LocalDateTime src, Type typeOfSrc, JsonSerializationContext context) {
-            // Преобразуем LocalDateTime обратно в строку
-            return new JsonPrimitive(FORMATTER.format(src));
-        }
-    }
-
-    public static class SafeMapTypeAdapterFactory implements TypeAdapterFactory {
-        @Override
-        public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-            if (type.getRawType() != Map.class) {
-                return null;
-            }
-
-            TypeAdapter<Map> delegateAdapter =
-                    (TypeAdapter<Map>) gson.getDelegateAdapter(this, type);
-
-            return (TypeAdapter<T>) new TypeAdapter<Map>() {
-                @Override
-                public void write(JsonWriter out, Map value) throws IOException {
-                    delegateAdapter.write(out, value);
-                }
-
-                @Override
-                public Map read(JsonReader in) throws IOException {
-                    Map<Object, Object> map = new LinkedHashMap<>();
-                    in.beginObject();
-                    while (in.hasNext()) {
-                        String key = in.nextName();
-                        Object value = gson.fromJson(in, Object.class);
-                        // Игнорировать дубликаты или null-ключи
-                        if (key != null && !map.containsKey(key)) {
-                            map.put(key, value);
-                        }
-                    }
-                    in.endObject();
-                    return map;
-                }
-            };
-        }
-    }
 }
