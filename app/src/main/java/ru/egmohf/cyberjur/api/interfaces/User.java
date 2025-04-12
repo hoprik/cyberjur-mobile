@@ -94,7 +94,8 @@ public class User {
         });
     }
 
-    public static void auth(){
+    public static MutableLiveData<Void> auth(){
+        MutableLiveData<Void> result = new MutableLiveData<>();
         ApiHelper.postToBack("user/getOne", "{}", new ResponseCallback() {
             @Override
             public void onSuccess(ResponseWrapper wrapper) {
@@ -103,13 +104,15 @@ public class User {
                 user_id = wrapper.response.header("set-cookie").split("user_id=")[1].split(";")[0];
                 Cache.getInstance().setData(ConfigKeys.USER_PROFILE.getKey(),wrapper.getAnswer());
                 Cache.getInstance().setData(ConfigKeys.USER_ID.getKey(),user_id);
+                result.postValue(null);
             }
 
             @Override
             public void onFailure(ResponseWrapper wrapper) {
-
+                result.postValue(null);
             }
         });
+        return result;
     }
 
     private static void updateTheme(){

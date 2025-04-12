@@ -1,7 +1,9 @@
 package ru.egmohf.cyberjur.ui.activities;
 
+import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,6 +26,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         PopupEngine.getINSTANCE().changeActivity(this);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (checkSelfPermission(android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{android.Manifest.permission.POST_NOTIFICATIONS}, 1);
+            }
+        }
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
