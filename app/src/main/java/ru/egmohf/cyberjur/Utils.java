@@ -1,5 +1,8 @@
 package ru.egmohf.cyberjur;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
@@ -14,12 +17,19 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class Utils {
-    public static  <T> T parse(String json, Class<T> responseType){
+    public static <T> T parse(String json, Class<T> responseType){
         Gson gson = new GsonBuilder().
                 registerTypeAdapter(LocalDateTime.class, new LocalDateTimeTypeAdapter()).
                 registerTypeAdapterFactory(new SafeMapTypeAdapterFactory()).
                 create();
         return gson.fromJson(json, responseType);
+    }
+
+    public static boolean isNetworkAvailable(Context context) {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager != null ? connectivityManager.getActiveNetworkInfo() : null;
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
     public static class LocalDateTimeTypeAdapter implements JsonSerializer<LocalDateTime>, JsonDeserializer<LocalDateTime> {
