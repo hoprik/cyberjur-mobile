@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 public class ApiHelper {
     public static final String API = "https://school.kiberlandia.ru/api/";
 
-    public static void post(String url, String json, ResponseCallback callback) {
+    public static void post(String url, String json, boolean needCache, ResponseCallback callback) {
         Cache cache = Cache.getInstance();
         MediaType JSON = MediaType.get("application/json");
         OkHttpClient client = new OkHttpClient.Builder().
@@ -106,7 +106,9 @@ public class ApiHelper {
             }
         };
 
-        client.newCall(cacheRequest).enqueue(cacheCallback);
+        if (needCache) {
+            client.newCall(cacheRequest).enqueue(cacheCallback);
+        }
         client.newCall(netRequest).enqueue(netCallback);
 
     }
@@ -139,18 +141,18 @@ public class ApiHelper {
         return userIdCookie + " " + sessionCookie;
     }
 
-    public static void postToBack(String url, String json, ResponseCallback callback) {
+    public static void postToBack(String url, String json, boolean needCache, ResponseCallback callback) {
         String fullUrl = API + url;
-        post(fullUrl, json, callback);
+        post(fullUrl, json, needCache, callback);
     }
 
-    public static <T> void postToBack(String url, Object parsedClass, ResponseCallback callback) {
+    public static <T> void postToBack(String url, Object parsedClass, boolean needCache, ResponseCallback callback) {
         String fullUrl = API + url;
         Gson gson = new GsonBuilder()
                 .serializeNulls()
                 .create();
         String json = gson.toJson(parsedClass);
-        postToBack(fullUrl, json, callback);
+        postToBack(fullUrl, json, needCache, callback);
     }
 
     private static boolean hasError(String json) {

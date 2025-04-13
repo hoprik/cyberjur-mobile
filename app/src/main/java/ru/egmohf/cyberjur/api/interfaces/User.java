@@ -53,11 +53,11 @@ public class User {
             return new MutableLiveData<>(false);
         }
         MutableLiveData<Boolean> result = new MutableLiveData<>();
-        ApiHelper.postToBack("user/login", String.format("{\"email\":\"%s\",\"login\":\"%s\",\"password\":\"%s\"}", jsonInfo[0], jsonInfo[1], jsonInfo[2]), new ResponseCallback() {
+        ApiHelper.postToBack("user/login", String.format("{\"email\":\"%s\",\"login\":\"%s\",\"password\":\"%s\"}", jsonInfo[0], jsonInfo[1], jsonInfo[2]), false, new ResponseCallback() {
             @Override
             public void onSuccess(ResponseWrapper wrapper) {
                 session_id = wrapper.response.header("set-cookie").split("session_id=")[1].split(";")[0];
-                ApiHelper.postToBack("session/saveDevice", String.format("{\"password\":\"%s\"}", password), new ResponseCallback() {
+                ApiHelper.postToBack("session/saveDevice", String.format("{\"password\":\"%s\"}", password), true, new ResponseCallback() {
                     @Override
                     public void onSuccess(ResponseWrapper wrapper) {
 
@@ -82,7 +82,7 @@ public class User {
 
     public static void getOne(UserCallback callback) {
         callBack = callback;
-        ApiHelper.postToBack("user/getOne", "{}", new ResponseCallback() {
+        ApiHelper.postToBack("user/getOne", "{}", true, new ResponseCallback() {
             @Override
             public void onSuccess(ResponseWrapper wrapper) {
                 myProfile = wrapper.getParsedResponse(UserObject.class, "user");
@@ -99,7 +99,7 @@ public class User {
 
     public static MutableLiveData<Void> auth(){
         MutableLiveData<Void> result = new MutableLiveData<>();
-        ApiHelper.postToBack("user/getOne", "{}", new ResponseCallback() {
+        ApiHelper.postToBack("user/getOne", "{}", true, new ResponseCallback() {
             @Override
             public void onSuccess(ResponseWrapper wrapper) {
                 myProfile = wrapper.getParsedResponse(UserObject.class, "user");
@@ -144,7 +144,7 @@ public class User {
     }
 
     public static void logout(){
-        ApiHelper.postToBack("user/deleteSession", String.format("{sessionId:\"%s\"}", session_id), new ResponseCallback() {
+        ApiHelper.postToBack("user/deleteSession", String.format("{sessionId:\"%s\"}", session_id), false, new ResponseCallback() {
             @Override
             public void onSuccess(ResponseWrapper wrapper) {
                 Cache.getInstance().removeData(ConfigKeys.USER_PROFILE.getKey());
