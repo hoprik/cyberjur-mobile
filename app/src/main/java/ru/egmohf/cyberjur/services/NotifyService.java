@@ -85,6 +85,42 @@ public class NotifyService extends Service {
                 Log.e(TAG, "Error processing notification", e);
             }
         });
+
+        apiSocket.on("notifyAll", (event) -> {
+            try {
+                JSONObject jsonObject = (JSONObject) event[0];
+                NotificationObject notice = Utils.parse(jsonObject.toString(), NotificationObject.class);
+
+                if (notice == null || notice.getActions() == null) {
+                    Log.e(TAG, "Invalid notification object");
+                    return;
+                }
+
+                if (!isAppVisible()) {
+                    sendNotif(notice);
+                }
+            } catch (Exception e) {
+                Log.e(TAG, "Error processing notification", e);
+            }
+        });
+
+        apiSocket.on("notifyPhone", (event) -> {
+            try {
+                JSONObject jsonObject = (JSONObject) event[0];
+                NotificationObject notice = Utils.parse(jsonObject.toString(), NotificationObject.class);
+
+                if (notice == null || notice.getActions() == null) {
+                    Log.e(TAG, "Invalid notification object");
+                    return;
+                }
+
+                if (!isAppVisible()) {
+                    sendNotif(notice);
+                }
+            } catch (Exception e) {
+                Log.e(TAG, "Error processing notification", e);
+            }
+        });
     }
 
     private void sendNotif(NotificationObject notice) {
