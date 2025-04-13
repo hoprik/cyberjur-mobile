@@ -21,7 +21,7 @@ public class HomeFragment extends Fragment {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        User.getOne();
+        User.getOne(profile ->{});
 
         binding.notifyButton.setOnClickListener(view -> {
             PopupEngine.getINSTANCE().sendNotify("Тест");
