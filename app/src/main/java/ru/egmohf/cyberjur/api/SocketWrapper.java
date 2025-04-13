@@ -34,6 +34,24 @@ public class SocketWrapper {
             PopupEngine.getINSTANCE().sendNotify(notice);
         });
 
+        socket.on("changeMoneyUser", (event) -> {
+            int money = (int) event[0];
+            User.getMyProfile().setMoney(money);
+            User.updateCallback();
+        });
+
+        socket.on("changeThanksUser", (event) -> {
+            int thanks = (int) event[0];
+            User.getMyProfile().setThanks(thanks);
+            User.updateCallback();
+        });
+
+        socket.on("changeGiveThanksUser", (event) -> {
+            int thanks = (int) event[0];
+            User.getMyProfile().setGiveThanks(thanks);
+            User.updateCallback();
+        });
+
         socket.on("notifyAll", (event) -> {
             JSONObject jsonObject = (JSONObject) event[0];
             NotificationObject notice = Utils.parse(jsonObject.toString(), NotificationObject.class);
@@ -45,7 +63,7 @@ public class SocketWrapper {
         });
 
         socket.on("closeSession", (event) -> {
-            // TODO: Выход пользователя из приложения
+            User.logout();
         });
     }
 

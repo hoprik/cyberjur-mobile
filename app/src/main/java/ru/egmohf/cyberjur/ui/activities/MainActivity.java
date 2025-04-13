@@ -13,6 +13,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import ru.egmohf.cyberjur.R;
 import ru.egmohf.cyberjur.api.interfaces.User;
+import ru.egmohf.cyberjur.api.objects.UserObject;
 import ru.egmohf.cyberjur.databinding.ActivityMainBinding;
 import ru.egmohf.cyberjur.saveData.Cache;
 import ru.egmohf.cyberjur.saveData.ConfigKeys;
@@ -36,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        User.getOne();
+        User.getOne(profile -> {});
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
         navView.setBackgroundColor(Color.parseColor(Cache.getInstance().getStringData(ConfigKeys.BG_SECOND.getKey(), "")));

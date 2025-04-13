@@ -3,6 +3,7 @@ package ru.egmohf.cyberjur.ui.popup;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.Gravity;
@@ -15,6 +16,8 @@ import com.google.android.material.snackbar.Snackbar;
 import org.jetbrains.annotations.NotNull;
 import ru.egmohf.cyberjur.R;
 import ru.egmohf.cyberjur.api.objects.NotificationObject;
+import ru.egmohf.cyberjur.services.NotifyService;
+import ru.egmohf.cyberjur.ui.activities.LoginActivity;
 import ru.egmohf.cyberjur.ui.popup.modal.Modal;
 import ru.egmohf.cyberjur.ui.popup.modal.ModalDialog;
 import ru.egmohf.cyberjur.ui.popup.sidebar.Sidebar;
@@ -164,6 +167,11 @@ public class PopupEngine {
     public void createModal(Modal modal){
         ModalDialog dialog = new ModalDialog(mainActivity, modal);
         dialog.show();
+    }
+
+    public void logout(){
+        this.mainActivity.stopService(new Intent(this.mainActivity, NotifyService.class));
+        this.mainActivity.startActivity(new Intent(this.mainActivity, LoginActivity.class));
     }
 
     public void reloadActivity() {

@@ -9,6 +9,7 @@ import ru.egmohf.cyberjur.api.helpers.ResponseWrapper;
 import ru.egmohf.cyberjur.api.objects.UserObject;
 import ru.egmohf.cyberjur.saveData.Cache;
 import ru.egmohf.cyberjur.saveData.ConfigKeys;
+import ru.egmohf.cyberjur.ui.popup.PopupEngine;
 
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -18,6 +19,7 @@ public class User {
     private static String user_id = "";
     private static String session_id = "";
     private static UserObject myProfile;
+    private static UserCallback callBack;
 
     public static UserObject getMyProfile() {
         return myProfile;
@@ -78,18 +80,19 @@ public class User {
         return result;
     }
 
-    public static void getOne() {
+    public static void getOne(UserCallback callback) {
+        callBack = callback;
         ApiHelper.postToBack("user/getOne", "{}", new ResponseCallback() {
             @Override
             public void onSuccess(ResponseWrapper wrapper) {
                 myProfile = wrapper.getParsedResponse(UserObject.class, "user");
                 Cache.getInstance().setData(ConfigKeys.USER_PROFILE.getKey(),wrapper.getAnswer());
                 updateTheme();
+                callback.onSuccess(myProfile);
             }
 
             @Override
             public void onFailure(ResponseWrapper wrapper) {
-
             }
         });
     }
@@ -132,6 +135,34 @@ public class User {
             return new String[]{usernameOrEmail, "", password};
         }
         return new String[]{"", usernameOrEmail, password};
+    }
+
+    public static void updateCallback() {
+        if (callBack != null) {
+            callBack.onSuccess(getMyProfile());
+        }
+    }
+
+    public static void logout(){
+        ApiHelper.postToBack("user/deleteSession", String.format("{sessionId:\"%s\"}", session_id), new ResponseCallback() {
+            @Override
+            public void onSuccess(ResponseWrapper wrapper) {
+                Cache.getInstance().removeData(ConfigKeys.USER_PROFILE.getKey());
+                Cache.getInstance().removeData(ConfigKeys.SESSION.getKey());
+                Cache.getInstance().removeData(ConfigKeys.USER_ID.getKey());
+                PopupEngine.getINSTANCE().sendNotify("Вы успешно вышли из аккаунта!", "red");
+                PopupEngine.getINSTANCE().logout();
+            }
+
+            @Override
+            public void onFailure(ResponseWrapper wrapper) {
+
+            }
+        });
+    }
+
+    public interface UserCallback {
+        void onSuccess(UserObject profile);
     }
 
 }
