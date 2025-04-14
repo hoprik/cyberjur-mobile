@@ -1,5 +1,7 @@
 package ru.egmohf.cyberjur.api.helpers;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 
 import org.json.JSONException;
@@ -35,6 +37,7 @@ public class ApiSocket {
         socket.on(Socket.EVENT_CONNECT_ERROR, args -> {
             Exception e = (Exception) args[0];
             Log.e(LOG_TAG, "Connection error: " + e.getMessage(), e);
+            scheduleReconnect();
         });
 
 
@@ -42,6 +45,7 @@ public class ApiSocket {
         socket.on(Socket.EVENT_DISCONNECT, args -> {
             String reason = args.length > 0 ? (String) args[0] : "unknown";
             Log.w(LOG_TAG, "Disconnected. Reason: " + reason);
+            scheduleReconnect();
         });
 
         // Обработчик успешного подключения
@@ -72,6 +76,7 @@ public class ApiSocket {
             socket.once(Socket.EVENT_CONNECT_ERROR, args -> {
                 Exception e = (Exception) args[0];
                 Log.e(LOG_TAG, "Final connection error: " + e.getMessage());
+                scheduleReconnect();
             });
 
             socket.open();
@@ -106,6 +111,14 @@ public class ApiSocket {
     public void close() {
         Log.d(LOG_TAG, "Closing connection...");
         socket.disconnect();
+    }
+
+    private void scheduleReconnect() {
+        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+            if (User.getMyProfile() != null) {
+                this.connect(User.getMyProfile().getPublicId());
+            }
+        }, 5000); // Повторная попытка через 5 секунд
     }
 
     private static class UserConnectData {

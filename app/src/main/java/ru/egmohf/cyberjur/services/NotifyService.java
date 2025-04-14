@@ -51,10 +51,9 @@ public class NotifyService extends Service {
 
         if (intent != null && intent.getAction() != null) {
             handleAction(intent.getAction());
-            return START_NOT_STICKY;
         }
 
-        return super.onStartCommand(intent, flags, startId);
+        return START_NOT_STICKY;
     }
 
     private void handleAction(String action) {
@@ -83,6 +82,7 @@ public class NotifyService extends Service {
                 }
             } catch (Exception e) {
                 Log.e(TAG, "Error processing notification", e);
+                startService(new Intent(this, NotifyService.class));
             }
         });
 
@@ -101,6 +101,7 @@ public class NotifyService extends Service {
                 }
             } catch (Exception e) {
                 Log.e(TAG, "Error processing notification", e);
+                startService(new Intent(this, NotifyService.class));
             }
         });
 
@@ -119,6 +120,7 @@ public class NotifyService extends Service {
                 }
             } catch (Exception e) {
                 Log.e(TAG, "Error processing notification", e);
+                startService(new Intent(this, NotifyService.class));
             }
         });
     }
