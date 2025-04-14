@@ -1,4 +1,4 @@
-package ru.egmohf.cyberjur.ui.fragments.dashboard;
+package ru.egmohf.cyberjur.ui.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,23 +9,20 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import ru.egmohf.cyberjur.api.interfaces.User;
-import ru.egmohf.cyberjur.databinding.FragmentDashboardBinding;
+import ru.egmohf.cyberjur.databinding.FragmentDiaryBinding;
 
-public class DashboardFragment extends Fragment {
+public class DiaryFragment extends Fragment {
 
-    private FragmentDashboardBinding binding;
+    private FragmentDiaryBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        DashboardViewModel dashboardViewModel =
-                new ViewModelProvider(this).get(DashboardViewModel.class);
 
-        binding = FragmentDashboardBinding.inflate(inflater, container, false);
+        binding = FragmentDiaryBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         User.getOne(profile ->{});
 
-        final TextView textView = binding.textDashboard;
-        dashboardViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        binding.textDashboard.setText("Dairy fragment");
         return root;
     }
 

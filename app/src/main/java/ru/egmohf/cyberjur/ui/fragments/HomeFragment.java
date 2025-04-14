@@ -1,4 +1,4 @@
-package ru.egmohf.cyberjur.ui.fragments.home;
+package ru.egmohf.cyberjur.ui.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

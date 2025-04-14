@@ -7,19 +7,55 @@
 
     <fragment
             android:id="@+id/navigation_home"
-            android:name="ru.egmohf.cyberjur.ui.fragments.home.HomeFragment"
-            android:label="@string/title_home"
+            android:name="ru.egmohf.cyberjur.ui.fragments.HomeFragment"
+            android:label="@string/home"
             tools:layout="@layout/fragment_home"/>
 
     <fragment
-            android:id="@+id/navigation_dashboard"
-            android:name="ru.egmohf.cyberjur.ui.fragments.dashboard.DashboardFragment"
-            android:label="@string/title_dashboard"
-            tools:layout="@layout/fragment_dashboard"/>
+            android:id="@+id/navigation_diary"
+            android:name="ru.egmohf.cyberjur.ui.fragments.DiaryFragment"
+            android:label="@string/diary"
+            tools:layout="@layout/fragment_diary"/>
 
     <fragment
-            android:id="@+id/navigation_notifications"
-            android:name="ru.egmohf.cyberjur.ui.fragments.notifications.NotificationsFragment"
-            android:label="@string/title_notifications"
-            tools:layout="@layout/fragment_notifications"/>
+            android:id="@+id/navigation_calendar"
+            android:name="ru.egmohf.cyberjur.ui.fragments.CalendarFragment"
+            android:label="@string/calendar"
+            tools:layout="@layout/fragment_calendar"/>
+
+    <fragment
+            android:id="@+id/navigation_materials"
+            android:name="ru.egmohf.cyberjur.ui.fragments.MaterialsFragment"
+            android:label="@string/materials"
+            tools:layout="@layout/fragment_materials"/>
+
+    <fragment
+            android:id="@+id/navigation_school"
+            android:name="ru.egmohf.cyberjur.ui.fragments.SchoolFragment"
+            android:label="@string/school"
+            tools:layout="@layout/fragment_school"/>
+
+    <fragment
+            android:id="@+id/navigation_shop"
+            android:name="ru.egmohf.cyberjur.ui.fragments.ShopFragment"
+            android:label="@string/shop"
+            tools:layout="@layout/fragment_shop"/>
+
+    <fragment
+            android:id="@+id/navigation_games"
+            android:name="ru.egmohf.cyberjur.ui.fragments.GamesFragment"
+            android:label="@string/materials"
+            tools:layout="@layout/fragment_games"/>
+
+    <fragment
+            android:id="@+id/navigation_ai"
+            android:name="ru.egmohf.cyberjur.ui.fragments.AiFragment"
+            android:label="@string/school"
+            tools:layout="@layout/fragment_ai"/>
+
+    <fragment
+            android:id="@+id/navigation_settings"
+            android:name="ru.egmohf.cyberjur.ui.fragments.SettingsFragment"
+            android:label="@string/shop"
+            tools:layout="@layout/fragment_settings"/>
 </navigation>

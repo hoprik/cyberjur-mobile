@@ -5,10 +5,10 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.fragments.dashboard.DashboardFragment">
+        tools:context=".ui.fragments.CalendarFragment">
 
     <TextView
-            android:id="@+id/text_dashboard"
+            android:id="@+id/text_notifications"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -20,10 +20,4 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
-    <ru.egmohf.cyberjur.ui.widget.CView android:layout_width="150dp" android:layout_height="100dp"
-                                        android:padding="5dp"
-                                        app:layout_constraintEnd_toEndOf="parent"
-                                        app:layout_constraintStart_toStartOf="parent"
-                                        app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="56dp"
-                                        app:layout_constraintHorizontal_bias="0.498" app:bgColor="red" app:round="45dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

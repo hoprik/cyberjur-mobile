@@ -1,4 +1,4 @@
-package ru.egmohf.cyberjur.ui.fragments.notifications;
+package ru.egmohf.cyberjur.ui.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,23 +9,20 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import ru.egmohf.cyberjur.api.interfaces.User;
-import ru.egmohf.cyberjur.databinding.FragmentNotificationsBinding;
+import ru.egmohf.cyberjur.databinding.FragmentCalendarBinding;
 
-public class NotificationsFragment extends Fragment {
+public class CalendarFragment extends Fragment {
 
-    private FragmentNotificationsBinding binding;
+    private FragmentCalendarBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        NotificationsViewModel notificationsViewModel =
-                new ViewModelProvider(this).get(NotificationsViewModel.class);
 
-        binding = FragmentNotificationsBinding.inflate(inflater, container, false);
+        binding = FragmentCalendarBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         User.getOne(profile ->{});
 
-        final TextView textView = binding.textNotifications;
-        notificationsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        binding.textNotifications.setText("Calendar");
         return root;
     }
 
