@@ -53,7 +53,7 @@ public class NotifyService extends Service {
             handleAction(intent.getAction());
         }
 
-        return START_NOT_STICKY;
+        return START_STICKY;
     }
 
     private void handleAction(String action) {
