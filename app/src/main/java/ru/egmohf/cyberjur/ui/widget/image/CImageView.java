@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.util.AttributeSet;
 import androidx.appcompat.widget.AppCompatImageView;
 import okhttp3.Response;
@@ -20,6 +21,11 @@ import java.util.concurrent.atomic.AtomicReference;
 public class CImageView extends AppCompatImageView {
     ImageDrawable drawable;
     private float[] rounds = new float[8];
+    private int borderWidth = 0;
+    private String borderColor = "#000000";
+    private float borderDashWidth = 0;
+    private float borderDashGap = 0;
+
     public CImageView(Context context) {
         super(context);
         drawable = new ImageDrawable(null, this);
@@ -100,4 +106,25 @@ public class CImageView extends AppCompatImageView {
         rounds[7] = bottomLeft; // BLy
         this.drawable.setCornerRadii(rounds);
     }
+
+    public void setBorderWidth(int width) {
+        this.borderWidth = width;
+        this.drawable.setStroke(borderWidth, Color.parseColor(borderColor), borderDashWidth, borderDashGap);
+    }
+
+    public void setBorderColor(String color) {
+        this.borderColor = color;
+        this.drawable.setStroke(borderWidth, Color.parseColor(borderColor), borderDashWidth, borderDashGap);
+    }
+
+    public void setBorderDashWidth(float width) {
+        this.borderDashWidth = width;
+        this.drawable.setStroke(borderWidth, Color.parseColor(borderColor), borderDashWidth, borderDashGap);
+    }
+
+    public void setBorderDashGap(float gap) {
+        this.borderDashGap = gap;
+        this.drawable.setStroke(borderWidth, Color.parseColor(borderColor), borderDashWidth, borderDashGap);
+    }
+
 }
