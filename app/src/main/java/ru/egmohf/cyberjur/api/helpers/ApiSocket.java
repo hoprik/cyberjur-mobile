@@ -21,6 +21,7 @@ public class ApiSocket {
     private ApiSocket() {
         IO.Options options = new IO.Options();
         options.timeout = 5000;
+        options.transports = new String[]{"websocket"};
         try {
             this.socket = IO.socket(SOCKET_URL, options);
             setupSocketListeners();
@@ -61,7 +62,7 @@ public class ApiSocket {
             Log.d(LOG_TAG, "Initiating connection...");
 
             // Добавляем однократный обработчик успешного подключения
-            socket.once(Socket.EVENT_CONNECT, args -> {
+            socket.on(Socket.EVENT_CONNECT, args -> {
                 Log.d(LOG_TAG, "Post-connect operations");
                 String sessionId = User.getSession_id();
                 emit("userConnect", new UserConnectData(userPublicId, sessionId).toJson());
