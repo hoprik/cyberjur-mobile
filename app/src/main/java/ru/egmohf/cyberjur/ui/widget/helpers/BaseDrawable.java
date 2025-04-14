@@ -26,17 +26,39 @@ public class BaseDrawable extends GradientDrawable {
         }
     }
 
-    private void setAttributes(TypedArray attrs){
+    private void setAttributes(TypedArray attrs) {
         float[] radii = getCornerRadius(attrs);
         setCornerRadii(radii);
 
         // Set background color
         String bgColor = attrs.getString(R.styleable.BaseWidget_bgColor);
         if (bgColor == null) bgColor = "#00000000";
-        if (Cache.getInstance().hasData(bgColor)) bgColor = Cache.getInstance().getStringData(bgColor, "");
+        if (Cache.getInstance().hasData(bgColor))
+            bgColor = Cache.getInstance().getStringData(bgColor, "");
         setColor(Color.parseColor(bgColor));
+
+        // Border settings
+        float borderWidth = attrs.getDimension(R.styleable.BaseWidget_borderWidth, 0);
+        if (borderWidth > 0) {
+            String borderColor = attrs.getString(R.styleable.BaseWidget_borderColor);
+            if (borderColor == null) borderColor = "#00000000";
+            if (Cache.getInstance().hasData(borderColor))
+                borderColor = Cache.getInstance().getStringData(borderColor, "");
+
+            float dashWidth = attrs.getDimension(R.styleable.BaseWidget_borderDashWidth, 0);
+            float dashGap = attrs.getDimension(R.styleable.BaseWidget_borderDashGap, 0);
+
+            setStroke(
+                    (int) borderWidth,
+                    Color.parseColor(borderColor),
+                    dashWidth,
+                    dashGap
+            );
+        }
+
         view.setBackground(this);
     }
+
 
     private float[] getCornerRadius(TypedArray attributes) {
         float[] radii = new float[8]; // 8 values for [TLx, TLy, TRx, TRy, BRx, BRy, BLx, BLy]
@@ -84,13 +106,26 @@ public class BaseDrawable extends GradientDrawable {
         }
     }
 
-    public void aplayTheme(){
-        if (view instanceof IBaseDrawable){
+    public void aplayTheme() {
+        if (view instanceof IBaseDrawable) {
             IBaseDrawable drawable = (IBaseDrawable) view;
+
+            // Обновляем границы
+            if (drawable.getBorderWidth() > 0) {
+                setStroke(
+                        (int) drawable.getBorderWidth(),
+                        Color.parseColor(drawable.getBorderColor()),
+                        drawable.getBorderDashWidth(),
+                        drawable.getBorderDashGap()
+                );
+            }
+
             String color = drawable.getBgColor();
             if (color == null) color = "#00000000";
-            if (Cache.getInstance().hasData(color)) color = Cache.getInstance().getStringData(color, "");
+            if (Cache.getInstance().hasData(color))
+                color = Cache.getInstance().getStringData(color, "");
             setColor(Color.parseColor(color));
+
             setCornerRadii(drawable.getRound());
         }
         view.setBackground(this);

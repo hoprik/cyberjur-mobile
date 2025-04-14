@@ -4,10 +4,14 @@ import android.util.Log;
 
 import java.util.Arrays;
 
-public class DrawableHelper {
+public class DrawableHelper implements IBaseDrawable{
     private String bgColor = "#000000";
     private float[] rounds = new float[8]; // [TLx, TLy, TRx, TRy, BRx, BRy, BLx, BLy]
     public BaseDrawable drawable;
+    private float borderWidth = 0;
+    private String borderColor = "#000000";
+    private float borderDashWidth = 0;
+    private float borderDashGap = 0;
 
     public DrawableHelper(BaseDrawable drawable) {
         this.drawable = drawable;
@@ -57,5 +61,48 @@ public class DrawableHelper {
 
     public float[] getRound() {
         return this.rounds;
+    }
+
+    @Override
+    public void setBorderWidth(float width) {
+        this.borderWidth = width;
+        this.drawable.aplayTheme();
+    }
+
+    @Override
+    public float getBorderWidth() {
+        return this.borderWidth;
+    }
+
+    @Override
+    public void setBorderColor(String color) {
+        this.borderColor = color;
+        this.drawable.aplayTheme();
+    }
+
+    @Override
+    public String getBorderColor() {
+        return this.borderColor;
+    }
+
+    @Override
+    public void setBorderDashWidth(float width) {
+        this.borderDashWidth = width;
+        this.drawable.aplayTheme();
+    }
+
+    @Override
+    public float getBorderDashWidth() {
+        return this.borderDashWidth;
+    }
+
+    @Override
+    public void setBorderDashGap(float gap) {
+        this.borderDashGap = gap;
+    }
+
+    @Override
+    public float getBorderDashGap() {
+        return this.borderDashGap;
     }
 }

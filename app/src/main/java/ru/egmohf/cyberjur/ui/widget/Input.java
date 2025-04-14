@@ -87,4 +87,44 @@ public class Input extends AppCompatEditText implements IBaseDrawable {
     public float[] getRound() {
         return helper.getRound();
     }
+
+    @Override
+    public void setBorderWidth(float width) {
+        this.helper.setBorderWidth(width);
+    }
+
+    @Override
+    public float getBorderWidth() {
+        return this.helper.getBorderWidth();
+    }
+
+    @Override
+    public void setBorderColor(String color) {
+        this.helper.setBorderColor(color);
+    }
+
+    @Override
+    public String getBorderColor() {
+        return this.helper.getBorderColor();
+    }
+
+    @Override
+    public void setBorderDashWidth(float width) {
+        this.helper.setBorderDashWidth(width);
+    }
+
+    @Override
+    public float getBorderDashWidth() {
+        return this.helper.getBorderDashWidth();
+    }
+
+    @Override
+    public void setBorderDashGap(float gap) {
+        this.helper.setBorderDashGap(gap);
+    }
+
+    @Override
+    public float getBorderDashGap() {
+        return this.helper.getBorderDashGap();
+    }
 }

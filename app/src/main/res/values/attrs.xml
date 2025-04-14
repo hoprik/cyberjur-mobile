@@ -7,9 +7,13 @@
         <attr name="roundX" format="dimension"/>
         <attr name="roundY" format="dimension"/>
         <attr name="round" format="dimension"/>
-        <attr name="bgColor" format="string"/>
-        <attr name="txtColor" format="string"/>
-        <attr name="txtHintColor" format="string"/>
+        <attr name="bgColor" format="string|color"/>
+        <attr name="txtColor" format="string|color"/>
+        <attr name="txtHintColor" format="string|color"/>
         <attr name="imageUrl" format="string"/>
+        <attr name="borderWidth" format="dimension"/>
+        <attr name="borderColor" format="string|reference"/>
+        <attr name="borderDashWidth" format="dimension"/>
+        <attr name="borderDashGap" format="dimension"/>
     </declare-styleable>
 </resources>
