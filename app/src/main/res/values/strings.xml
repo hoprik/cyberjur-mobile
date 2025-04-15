@@ -17,4 +17,6 @@
     <string name="game">CyberCards</string>
     <string name="ai">ИИ</string>
     <string name="settings">Настройки</string>
+    <string name="news">Новости</string>
+    <string name="widgets">Виджеты</string>
 </resources>
